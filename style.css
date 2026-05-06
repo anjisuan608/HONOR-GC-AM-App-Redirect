@@ -19,7 +19,7 @@
   SPDX-License-Identifier: AGPL-3.0-or-later
 */
 
-/* MD3 设计令牌 */
+/* MD3 设计令牌 - 浅色模式 */
 :root {
     --md3-primary: #6750A4;
     --md3-on-primary: #FFFFFF;
@@ -41,6 +41,28 @@
     --md3-border-radius: 28px;
     --md3-border-radius-sm: 16px;
     --md3-border-radius-xs: 8px;
+    --md3-bg-gradient: linear-gradient(135deg, #FEF7FF 0%, #E7E0EC 100%);
+}
+
+/* MD3 设计令牌 - 深色模式 */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --md3-primary: #D0BCFF;
+        --md3-on-primary: #381E72;
+        --md3-primary-container: #4F378B;
+        --md3-on-primary-container: #EADDFF;
+        --md3-secondary-container: #4A4458;
+        --md3-on-secondary-container: #E8DEF8;
+        --md3-surface: #1C1B1F;
+        --md3-surface-variant: #49454F;
+        --md3-on-surface: #E6E1E5;
+        --md3-on-surface-variant: #CAC4D0;
+        --md3-outline: #938F99;
+        --md3-outline-variant: #49454F;
+        --md3-error: #F2B8B5;
+        --md3-shadow: rgba(0, 0, 0, 0.3);
+        --md3-bg-gradient: linear-gradient(135deg, #1C1B1F 0%, #2D2B33 100%);
+    }
 }
 
 * {
@@ -51,7 +73,7 @@
 
 body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: linear-gradient(135deg, #FEF7FF 0%, #E7E0EC 100%);
+    background: var(--md3-bg-gradient);
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -139,7 +161,7 @@ body {
 }
 
 .segmented-label:hover {
-    background: rgba(103, 80, 164, 0.08);
+    background: color-mix(in srgb, var(--md3-primary) 8%, transparent);
 }
 
 .segmented-input:checked + .segmented-label {
@@ -240,8 +262,8 @@ body {
 }
 
 .fab:hover {
-    background: #5E5CE6;
-    box-shadow: 0 6px 12px rgba(103, 80, 164, 0.4);
+    background: color-mix(in srgb, var(--md3-primary) 85%, black);
+    box-shadow: 0 6px 12px color-mix(in srgb, var(--md3-primary) 40%, transparent);
 }
 
 .fab:active {
@@ -282,7 +304,7 @@ body {
 }
 
 .result-code {
-    font-family: 'Roboto Mono', 'Consolas', monospace;
+    font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, monospace;
     font-size: 14px;
     color: var(--md3-on-surface);
     word-break: break-all;
