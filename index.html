@@ -1,0 +1,88 @@
+<!--
+  AGPLv3 License
+
+  Copyright (C) 2026 anjisuan608
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published
+  by the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+  SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>荣耀游戏中心和应用市场应用详细页跳转</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1 class="app-title">荣耀游戏中心和应用市场<br>应用详细页跳转</h1>
+            <p class="app-subtitle">通过应用包名跳转至应用详情页面</p>
+        </header>
+
+        <main class="app-main">
+            <div class="card">
+                <div class="card-content">
+                    <div class="segmented-button" role="group" aria-label="选择平台">
+                        <input type="radio" class="segmented-input" name="platform" id="gc" value="gc" checked>
+                        <label class="segmented-label" for="gc">
+                            <span class="segmented-icon">🎮</span>
+                            <span class="segmented-text">游戏中心 (GC)</span>
+                        </label>
+
+                        <input type="radio" class="segmented-input" name="platform" id="am" value="am">
+                        <label class="segmented-label" for="am">
+                            <span class="segmented-icon">📦</span>
+                            <span class="segmented-text">应用市场 (AM)</span>
+                        </label>
+                    </div>
+
+                    <div class="input-field">
+                        <label class="input-label" for="pkgname">软件包名</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="pkgname" class="input" placeholder="例如：com.hihonor.example" autocomplete="off" spellcheck="false">
+                        </div>
+                        <span class="input-hint">输入要跳转的应用包名，如 com.hihonor.example</span>
+                    </div>
+
+                    <button class="fab" id="submitBtn" type="button">
+                        <span class="fab-icon">→</span>
+                        <span class="fab-label" id="submitLabel">跳转</span>
+                    </button>
+
+                    <div class="result-area" id="resultArea">
+                        <code class="result-code" id="resultCode">等待输入...</code>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="app-footer">
+            <div class="footer-content">
+                <p class="author">
+                    Copyright &copy; 2026 <a href="mailto:anjisuan608@petalmail.com">anjisuan608</a>
+                </p>
+                <p class="license">
+                    Licensed under the <a href="LICENSE" target="_blank" rel="noopener">AGPLv3</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,335 @@
+/*
+  AGPLv3 License
+
+  Copyright (C) 2026 anjisuan608
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published
+  by the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+  SPDX-License-Identifier: AGPL-3.0-or-later
+*/
+
+/* MD3 设计令牌 */
+:root {
+    --md3-primary: #6750A4;
+    --md3-on-primary: #FFFFFF;
+    --md3-primary-container: #EADDFF;
+    --md3-on-primary-container: #21005D;
+    --md3-secondary-container: #E8DEF8;
+    --md3-on-secondary-container: #1D192B;
+    --md3-surface: #FEF7FF;
+    --md3-surface-variant: #E7E0EC;
+    --md3-on-surface: #1D1B20;
+    --md3-on-surface-variant: #49454F;
+    --md3-outline: #79747E;
+    --md3-outline-variant: #CAC4D0;
+    --md3-error: #B3261E;
+    --md3-shadow: rgba(0, 0, 0, 0.15);
+    --md3-elevation-1: 0 1px 2px rgba(0,0,0,0.3), 0 1px 3px 1px rgba(0,0,0,0.15);
+    --md3-elevation-2: 0 1px 2px rgba(0,0,0,0.3), 0 2px 6px 2px rgba(0,0,0,0.15);
+    --md3-elevation-3: 0 4px 8px 3px rgba(0,0,0,0.15), 0 1px 3px rgba(0,0,0,0.3);
+    --md3-border-radius: 28px;
+    --md3-border-radius-sm: 16px;
+    --md3-border-radius-xs: 8px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #FEF7FF 0%, #E7E0EC 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    color: var(--md3-on-surface);
+}
+
+.app-container {
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* 页面头部 */
+.app-header {
+    text-align: center;
+}
+
+.app-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--md3-on-surface);
+    line-height: 1.3;
+    letter-spacing: 0;
+}
+
+.app-subtitle {
+    font-size: 14px;
+    color: var(--md3-on-surface-variant);
+    margin-top: 8px;
+}
+
+/* 卡片容器 */
+.card {
+    background: var(--md3-surface);
+    border-radius: var(--md3-border-radius);
+    box-shadow: var(--md3-elevation-2);
+    overflow: hidden;
+}
+
+.card-content {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* 分段按钮（单选组） */
+.segmented-button {
+    display: flex;
+    background: var(--md3-surface-variant);
+    border-radius: var(--md3-border-radius-sm);
+    padding: 4px;
+    gap: 4px;
+}
+
+.segmented-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.segmented-label {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border-radius: var(--md3-border-radius-xs);
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--md3-on-surface-variant);
+}
+
+.segmented-label:hover {
+    background: rgba(103, 80, 164, 0.08);
+}
+
+.segmented-input:checked + .segmented-label {
+    background: var(--md3-primary-container);
+    color: var(--md3-on-primary-container);
+    box-shadow: var(--md3-elevation-1);
+}
+
+.segmented-input:focus-visible + .segmented-label {
+    outline: 2px solid var(--md3-primary);
+    outline-offset: 2px;
+}
+
+.segmented-icon {
+    font-size: 18px;
+}
+
+/* 输入框区域 */
+.input-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--md3-primary);
+    padding-left: 16px;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.input {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: var(--md3-border-radius-xs);
+    background: var(--md3-surface-variant);
+    font-family: inherit;
+    font-size: 16px;
+    color: var(--md3-on-surface);
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input::placeholder {
+    color: var(--md3-on-surface-variant);
+    opacity: 0.7;
+}
+
+.input:hover {
+    background: var(--md3-outline-variant);
+}
+
+.input:focus {
+    outline: none;
+    background: var(--md3-surface);
+    box-shadow: inset 0 0 0 2px var(--md3-primary);
+}
+
+.input-hint {
+    font-size: 12px;
+    color: var(--md3-on-surface-variant);
+    padding-left: 16px;
+}
+
+/* 悬浮按钮 */
+.fab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px 24px;
+    border: none;
+    border-radius: var(--md3-border-radius);
+    background: var(--md3-primary);
+    color: var(--md3-on-primary);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+    box-shadow: var(--md3-elevation-3);
+    align-self: center;
+    min-width: 140px;
+}
+
+.fab:hover {
+    background: #5E5CE6;
+    box-shadow: 0 6px 12px rgba(103, 80, 164, 0.4);
+}
+
+.fab:active {
+    transform: scale(0.98);
+    box-shadow: var(--md3-elevation-2);
+}
+
+.fab:focus-visible {
+    outline: 2px solid var(--md3-primary);
+    outline-offset: 2px;
+}
+
+.fab-icon {
+    font-size: 18px;
+}
+
+/* 结果显示区域 */
+.result-area {
+    text-align: center;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.result-area.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.result-code {
+    font-family: 'Roboto Mono', 'Consolas', monospace;
+    font-size: 14px;
+    color: var(--md3-on-surface);
+    word-break: break-all;
+    white-space: pre-wrap;
+}
+
+/* 页面底部 */
+.app-footer {
+    text-align: center;
+    padding: 16px;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.author {
+    font-size: 14px;
+    color: var(--md3-on-surface);
+}
+
+.author a {
+    color: var(--md3-primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.author a:hover {
+    text-decoration: underline;
+}
+
+.license {
+    font-size: 12px;
+    color: var(--md3-on-surface-variant);
+}
+
+.license a {
+    color: var(--md3-on-surface-variant);
+    text-decoration: none;
+}
+
+.license a:hover {
+    text-decoration: underline;
+}
+
+/* 响应式布局 */
+@media (max-width: 480px) {
+    body {
+        padding: 16px;
+    }
+
+    .app-title {
+        font-size: 20px;
+    }
+
+    .card-content {
+        padding: 20px;
+    }
+
+    .segmented-label {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
+    .segmented-icon {
+        display: none;
+    }
+}
