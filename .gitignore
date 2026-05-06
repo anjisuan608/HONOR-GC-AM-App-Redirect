@@ -1,0 +1,53 @@
+# Git 提交排除文件
+# 临时文件
+*.tmp
+*.temp
+*.log
+*.bak
+*.swp
+*~
+
+# 编辑器和IDE
+.idea/
+.vscode/
+*.sublime-*
+
+# 操作系统文件
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 构建产物
+/dist/
+/build/
+*.exe
+*.dll
+*.so
+*.dylib
+
+# 依赖目录
+/node_modules/
+/.vendor/
+/packages/
+
+# 测试覆盖率
+/coverage/
+*.lcov
+
+# 环境配置
+.env
+.env.local
+.env.*.local
+
+# 调试日志
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 工程文件
+/workbuddy/
+/.workbuddy/
+
+# 临时文件夹
+/tmp/
+/temp/
