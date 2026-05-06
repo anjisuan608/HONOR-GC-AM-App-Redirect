@@ -154,7 +154,17 @@ body {
 }
 
 .segmented-icon {
-    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.segmented-icon svg {
+    width: 100%;
+    height: 100%;
 }
 
 /* 输入框区域 */
@@ -245,7 +255,17 @@ body {
 }
 
 .fab-icon {
-    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.fab-icon svg {
+    width: 100%;
+    height: 100%;
 }
 
 /* 结果显示区域 */
@@ -330,6 +350,7 @@ body {
     }
 
     .segmented-icon {
-        display: none;
+        width: 16px;
+        height: 16px;
     }
 }
