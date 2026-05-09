@@ -240,6 +240,14 @@ body {
     padding-left: 16px;
 }
 
+/* 按钮区域 */
+.button-area {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    justify-content: center;
+}
+
 /* 悬浮按钮 */
 .fab {
     display: flex;
