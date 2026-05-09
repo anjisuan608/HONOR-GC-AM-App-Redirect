@@ -26,6 +26,7 @@
 
     // DOM 元素
     const pkgInput = document.getElementById('pkgname');
+    const clearBtn = document.getElementById('clearBtn');
     const submitBtn = document.getElementById('submitBtn');
     const submitLabel = document.getElementById('submitLabel');
     const resultArea = document.getElementById('resultArea');
@@ -81,6 +82,13 @@
         resultArea.classList.remove('visible');
     }
 
+    // 处理清空操作
+    function handleClear() {
+        pkgInput.value = '';
+        hideResult();
+        pkgInput.focus();
+    }
+
     // 处理提交操作
     function handleSubmit() {
         const pkgName = pkgInput.value;
@@ -113,6 +121,7 @@
     }
     // 初始化事件监听器
     function initEventListeners() {
+        clearBtn.addEventListener('click', handleClear);
         submitBtn.addEventListener('click', handleSubmit);
         pkgInput.addEventListener('keydown', handleKeyDown);
 
