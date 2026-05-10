@@ -189,6 +189,20 @@ body {
     height: 100%;
 }
 
+/* 平台选择区域 */
+.platform-area {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.platform-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--md3-primary);
+    padding-left: 16px;
+}
+
 /* 输入框区域 */
 .input-field {
     display: flex;
