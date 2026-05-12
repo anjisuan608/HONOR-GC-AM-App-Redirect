@@ -31,6 +31,7 @@
     const submitLabel = document.getElementById('submitLabel');
     const resultArea = document.getElementById('resultArea');
     const resultCode = document.getElementById('resultCode');
+    const pasteBtn = document.getElementById('pasteBtn');
 
     // Deep Link 模板
     const DEEP_LINK_TEMPLATES = {
@@ -212,6 +213,23 @@
         clearBtn.addEventListener('click', handleClear);
         submitBtn.addEventListener('click', handleSubmit);
         pkgInput.addEventListener('keydown', handleKeyDown);
+
+        // 粘贴按钮点击事件
+        if (pasteBtn) {
+            pasteBtn.addEventListener('click', async function() {
+                try {
+                    const text = await navigator.clipboard.readText();
+                    // 过滤换行符号
+                    const filteredText = text.replace(/[\r\n]/g, '').trim();
+                    pkgInput.value = filteredText;
+                    // 触发 input 事件以更新 UI 状态
+                    pkgInput.dispatchEvent(new Event('input', { bubbles: true }));
+                    pkgInput.focus();
+                } catch (err) {
+                    // 剪贴板读取失败时不做处理
+                }
+            });
+        }
 
         // 输入变化时清空结果
         pkgInput.addEventListener('input', function() {

@@ -234,8 +234,16 @@ body {
     padding-left: 16px;
 }
 
+.input-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
 .input-wrapper {
-    position: relative;
+    flex: 1;
+    min-width: 0;
 }
 
 .input {
@@ -248,6 +256,42 @@ body {
     font-size: 16px;
     color: var(--md3-on-surface);
     transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.paste-btn {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border: 1px solid var(--md3-outline);
+    border-radius: var(--md3-border-radius-xs);
+    background: var(--md3-surface-variant);
+    color: var(--md3-on-surface-variant);
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    padding: 0;
+}
+
+.paste-btn svg {
+    width: 24px;
+    height: 24px;
+}
+
+.paste-btn:hover {
+    background: var(--md3-outline-variant);
+    border-color: var(--md3-on-surface-variant);
+    color: var(--md3-on-surface);
+}
+
+.paste-btn:active {
+    background: color-mix(in srgb, var(--md3-on-surface-variant) 16%, transparent);
+}
+
+.paste-btn:focus-visible {
+    outline: 2px solid var(--md3-primary);
+    outline-offset: 1px;
 }
 
 .input::placeholder {
