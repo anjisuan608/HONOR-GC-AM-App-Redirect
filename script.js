@@ -222,9 +222,25 @@
 
         // 搜索框输入事件
         var exampleSearch = document.getElementById('exampleSearch');
+        var searchClear = document.getElementById('searchClear');
         if (exampleSearch) {
             exampleSearch.addEventListener('input', function() {
                 filterExampleItems(this.value);
+                // 控制清空按钮显示/隐藏
+                if (searchClear) {
+                    searchClear.hidden = !this.value.trim();
+                }
+            });
+        }
+        // 清空按钮点击事件
+        if (searchClear) {
+            searchClear.addEventListener('click', function() {
+                if (exampleSearch) {
+                    exampleSearch.value = '';
+                    filterExampleItems('');
+                    this.hidden = true;
+                    exampleSearch.focus();
+                }
             });
         }
 
@@ -246,6 +262,9 @@
                     if (exampleSearch) {
                         exampleSearch.value = '';
                         filterExampleItems('');
+                        if (searchClear) {
+                            searchClear.hidden = true;
+                        }
                     }
                 } else {
                     // 展开

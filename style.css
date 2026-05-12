@@ -413,28 +413,37 @@ body {
 }
 
 /* 搜索框 */
-.example-search {
+.example-search-wrap {
     flex: 1;
     min-width: 0;
     margin: 0 8px;
-    padding: 6px 12px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 32px;
+    /* 默认隐藏，仅在展开时显示 */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+.example-items.expanded ~ .example-header .example-search-wrap,
+.example-area:has(.example-items.expanded) .example-search-wrap {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.example-search {
+    width: 100%;
+    height: 100%;
+    padding: 6px 32px 6px 12px;
     border: 1px solid var(--md3-outline);
     border-radius: var(--md3-border-radius-xs);
     background: var(--md3-surface-variant);
     font-family: inherit;
     font-size: 13px;
     color: var(--md3-on-surface);
-    transition: border-color 0.2s ease, background 0.2s ease, opacity 0.2s ease;
-    /* 默认隐藏，仅在展开时显示 */
-    opacity: 0;
-    pointer-events: none;
-    height: 32px;
-}
-
-.example-items.expanded ~ .example-header .example-search,
-.example-area:has(.example-items.expanded) .example-search {
-    opacity: 1;
-    pointer-events: auto;
+    transition: border-color 0.2s ease, background 0.2s ease;
 }
 
 .example-search::placeholder {
@@ -450,6 +459,49 @@ body {
     outline: none;
     border-color: var(--md3-primary);
     background: var(--md3-surface);
+}
+
+/* 搜索框清空按钮 */
+.search-clear {
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--md3-on-surface-variant);
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+    padding: 0;
+}
+
+.search-clear svg {
+    width: 18px;
+    height: 18px;
+}
+
+.search-clear:hover {
+    background: color-mix(in srgb, var(--md3-on-surface-variant) 12%, transparent);
+    color: var(--md3-on-surface);
+}
+
+.search-clear:active {
+    background: color-mix(in srgb, var(--md3-on-surface-variant) 16%, transparent);
+}
+
+.search-clear:focus-visible {
+    outline: 2px solid var(--md3-primary);
+    outline-offset: 1px;
+}
+
+.search-clear[hidden] {
+    display: none;
 }
 
 /* 显示/隐藏切换按钮 */
