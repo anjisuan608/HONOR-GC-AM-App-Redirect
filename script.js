@@ -216,12 +216,46 @@
         }
     }
 
+    /**
+     * 解析 URL 查询参数并执行对应操作
+     * plat: GC（游戏中心）或 AM（应用市场），默认 GC
+     * pkg: 包名，若有值则填入输入框
+     * go: true（默认）自动跳转，false 仅填入不跳转
+     */
+    function handleUrlParams() {
+        var params = new URLSearchParams(window.location.search);
+
+        // 解析平台参数
+        var plat = (params.get('plat') || '').toUpperCase();
+        if (plat === 'AM') {
+            document.getElementById('am').checked = true;
+        } else {
+            // 默认或 GC 均选择游戏中心
+            document.getElementById('gc').checked = true;
+        }
+
+        // 解析包名参数
+        var pkg = (params.get('pkg') || '').trim();
+        if (pkg) {
+            pkgInput.value = pkg;
+            // go 不存在或 go=true 时自动跳转，go=false 仅填入
+            var go = params.get('go');
+            if (go !== 'false') {
+                handleSubmit();
+            }
+        }
+    }
+
     // 初始化应用
     function init() {
         initEventListeners();
         loadExamplePackages();
-        // 页面加载时聚焦输入框
-        pkgInput.focus();
+        handleUrlParams();
+        // 仅在无 pkg 参数时聚焦输入框（避免跳转干扰）
+        var params = new URLSearchParams(window.location.search);
+        if (!params.get('pkg')) {
+            pkgInput.focus();
+        }
     }
 
     // DOM 加载完成后初始化
