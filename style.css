@@ -263,8 +263,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 56px;
-    height: 56px;
+    width: 48px;
+    height: 48px;
     border: 1px solid var(--md3-outline);
     border-radius: var(--md3-border-radius-xs);
     background: var(--md3-surface-variant);
@@ -275,8 +275,8 @@ body {
 }
 
 .paste-btn svg {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
 }
 
 .paste-btn:hover {
