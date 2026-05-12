@@ -444,8 +444,13 @@ body {
     transition: transform 0.3s ease;
 }
 
+/* 折叠时箭头向下，展开时指向上 */
 .example-toggle[aria-expanded="false"] .example-toggle-icon {
-    transform: rotate(-90deg);
+    transform: rotate(0deg);
+}
+
+.example-toggle[aria-expanded="true"] .example-toggle-icon {
+    transform: rotate(180deg);
 }
 
 .example-items {
