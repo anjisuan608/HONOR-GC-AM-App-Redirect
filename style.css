@@ -109,7 +109,14 @@ body {
     margin-top: 8px;
 }
 
-/* 卡片容器 */
+/* 主内容区域 */
+.app-main {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* 卡片通用样式 */
 .card {
     background: var(--md3-surface);
     border-radius: var(--md3-border-radius);
@@ -122,6 +129,16 @@ body {
     display: flex;
     flex-direction: column;
     gap: 24px;
+}
+
+/* 主卡片 */
+#main-card .card-content {
+    gap: 24px;
+}
+
+/* 示例包名卡片 */
+#package-card .card-content {
+    gap: 8px;
 }
 
 /* 分段按钮（单选组） */
@@ -374,6 +391,120 @@ body {
     text-decoration: underline;
 }
 
+/* 示例包名区域 */
+.example-area {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.example-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.example-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--md3-primary);
+    padding-left: 16px;
+}
+
+/* 显示/隐藏切换按钮 */
+.example-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--md3-on-surface-variant);
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.example-toggle:hover {
+    background: color-mix(in srgb, var(--md3-on-surface-variant) 8%, transparent);
+    color: var(--md3-on-surface);
+}
+
+.example-toggle:active {
+    background: color-mix(in srgb, var(--md3-on-surface-variant) 12%, transparent);
+}
+
+.example-toggle:focus-visible {
+    outline: 2px solid var(--md3-primary);
+    outline-offset: 2px;
+}
+
+.example-toggle-icon {
+    transition: transform 0.3s ease;
+}
+
+.example-toggle[aria-expanded="false"] .example-toggle-icon {
+    transform: rotate(-90deg);
+}
+
+.example-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.example-items.expanded {
+    opacity: 1;
+}
+
+/* MD3 Outlined Button 风格的示例芯片 */
+.example-chip {
+    flex: 1 1 calc(50% - 4px);
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 12px;
+    border: 1px solid var(--md3-outline);
+    border-radius: var(--md3-border-radius-sm);
+    background: transparent;
+    color: var(--md3-primary);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    overflow: hidden;
+}
+
+.example-chip span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    text-align: center;
+}
+
+.example-chip:hover {
+    background: color-mix(in srgb, var(--md3-primary) 8%, transparent);
+    border-color: var(--md3-primary);
+}
+
+.example-chip:active {
+    background: color-mix(in srgb, var(--md3-primary) 12%, transparent);
+    border-color: var(--md3-primary);
+}
+
+.example-chip:focus-visible {
+    outline: 2px solid var(--md3-primary);
+    outline-offset: 2px;
+}
+
 /* 响应式布局 */
 @media (max-width: 480px) {
     body {
@@ -407,5 +538,10 @@ body {
     .fab-icon {
         width: 16px;
         height: 16px;
+    }
+
+    .example-chip {
+        font-size: 12px;
+        padding: 8px 10px;
     }
 }

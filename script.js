@@ -38,6 +38,9 @@
         am: 'honormarket://details?id='
     };
 
+    // 示例包名数据缓存
+    var examplePackages = [];
+
     /**
      * 获取选中的平台
      * @returns {string} 'gc' 或 'am'
@@ -119,6 +122,64 @@
             handleSubmit();
         }
     }
+
+    /**
+     * 从 packages.xml 加载示例包名列表
+     */
+    function loadExamplePackages() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'packages.xml', true);
+        xhr.responseType = 'document';
+        xhr.onload = function() {
+            if (xhr.status === 200 && xhr.responseXML) {
+                var packages = xhr.responseXML.querySelectorAll('package');
+                examplePackages = [];
+                packages.forEach(function(pkg) {
+                    examplePackages.push({
+                        id: pkg.getAttribute('id'),
+                        name: pkg.querySelector('name').textContent,
+                        pkg: pkg.querySelector('pkg').textContent,
+                        note: pkg.querySelector('note').textContent
+                    });
+                });
+                renderExampleItems();
+            }
+        };
+        xhr.send();
+    }
+
+    /**
+     * 根据 Packages 数据渲染示例按钮
+     */
+    function renderExampleItems() {
+        var container = document.getElementById('exampleItems');
+        if (!container) return;
+
+        container.innerHTML = '';
+        examplePackages.forEach(function(item) {
+            var btn = document.createElement('button');
+            btn.className = 'example-chip';
+            btn.type = 'button';
+            btn.setAttribute('data-pkg', item.pkg);
+            btn.setAttribute('title', item.note || '');
+
+            var span = document.createElement('span');
+            span.textContent = item.name;
+            btn.appendChild(span);
+
+            btn.addEventListener('click', function() {
+                pkgInput.value = item.pkg;
+                var platform = getSelectedPlatform();
+                var deepLink = generateDeepLink(platform, item.pkg);
+                resultCode.textContent = '正在发起跳转……';
+                showResult();
+                window.location.href = deepLink;
+            });
+
+            container.appendChild(btn);
+        });
+    }
+
     // 初始化事件监听器
     function initEventListeners() {
         clearBtn.addEventListener('click', handleClear);
@@ -131,11 +192,34 @@
                 hideResult();
             }
         });
+
+        // 示例区域显示/隐藏切换
+        var toggleBtn = document.getElementById('exampleToggle');
+        var exampleItems = document.getElementById('exampleItems');
+        if (toggleBtn && exampleItems) {
+            toggleBtn.addEventListener('click', function() {
+                var expanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+                if (expanded) {
+                    // 折叠
+                    exampleItems.style.maxHeight = exampleItems.scrollHeight + 'px';
+                    // 强制重排后设为0，触发过渡动画
+                    exampleItems.offsetHeight;
+                    exampleItems.style.maxHeight = '0';
+                    exampleItems.classList.remove('expanded');
+                } else {
+                    // 展开
+                    exampleItems.classList.add('expanded');
+                    exampleItems.style.maxHeight = exampleItems.scrollHeight + 'px';
+                }
+            });
+        }
     }
 
     // 初始化应用
     function init() {
         initEventListeners();
+        loadExamplePackages();
         // 页面加载时聚焦输入框
         pkgInput.focus();
     }

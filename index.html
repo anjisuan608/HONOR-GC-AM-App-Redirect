@@ -37,7 +37,7 @@
         </header>
 
         <main class="app-main">
-            <div class="card">
+            <div class="card" id="main-card">
                 <div class="card-content">
                     <div class="platform-area">
                         <label class="platform-label" for="platform">平台</label>
@@ -77,6 +77,22 @@
 
                     <div class="result-area" id="resultArea">
                         <code class="result-code" id="resultCode">等待输入...</code>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" id="package-card">
+                <div class="card-content">
+                    <div class="example-area">
+                        <div class="example-header">
+                            <label class="example-label">示例包名</label>
+                            <button class="example-toggle" type="button" id="exampleToggle" aria-expanded="false" aria-controls="exampleItems" aria-label="展开或折叠示例包名" title="展开或折叠示例包名">
+                                <svg class="example-toggle-icon" xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor"><path d="M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+                            </button>
+                        </div>
+                        <div class="example-items collapsed" id="exampleItems">
+                            <!-- 由 JS 从 example-package.xml 动态加载 -->
+                        </div>
                     </div>
                 </div>
             </div>
