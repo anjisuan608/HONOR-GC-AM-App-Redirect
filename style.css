@@ -409,6 +409,47 @@ body {
     font-weight: 500;
     color: var(--md3-primary);
     padding-left: 16px;
+    white-space: nowrap;
+}
+
+/* 搜索框 */
+.example-search {
+    flex: 1;
+    min-width: 0;
+    margin: 0 8px;
+    padding: 6px 12px;
+    border: 1px solid var(--md3-outline);
+    border-radius: var(--md3-border-radius-xs);
+    background: var(--md3-surface-variant);
+    font-family: inherit;
+    font-size: 13px;
+    color: var(--md3-on-surface);
+    transition: border-color 0.2s ease, background 0.2s ease, opacity 0.2s ease;
+    /* 默认隐藏，仅在展开时显示 */
+    opacity: 0;
+    pointer-events: none;
+    height: 32px;
+}
+
+.example-items.expanded ~ .example-header .example-search,
+.example-area:has(.example-items.expanded) .example-search {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.example-search::placeholder {
+    color: var(--md3-on-surface-variant);
+    opacity: 0.7;
+}
+
+.example-search:hover {
+    border-color: var(--md3-on-surface-variant);
+}
+
+.example-search:focus {
+    outline: none;
+    border-color: var(--md3-primary);
+    background: var(--md3-surface);
 }
 
 /* 显示/隐藏切换按钮 */

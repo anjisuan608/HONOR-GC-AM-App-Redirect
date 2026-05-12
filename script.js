@@ -180,6 +180,33 @@
         });
     }
 
+    /**
+     * 根据搜索关键词过滤示例按钮显示
+     * @param {string} keyword - 搜索关键词
+     */
+    function filterExampleItems(keyword) {
+        var container = document.getElementById('exampleItems');
+        if (!container) return;
+
+        var chips = container.querySelectorAll('.example-chip');
+        var lowerKeyword = keyword.toLowerCase().trim();
+
+        chips.forEach(function(chip) {
+            var name = chip.querySelector('span').textContent.toLowerCase();
+            var pkg = chip.getAttribute('data-pkg').toLowerCase();
+            var note = (chip.getAttribute('title') || '').toLowerCase();
+
+            if (!lowerKeyword ||
+                name.includes(lowerKeyword) ||
+                pkg.includes(lowerKeyword) ||
+                note.includes(lowerKeyword)) {
+                chip.style.display = '';
+            } else {
+                chip.style.display = 'none';
+            }
+        });
+    }
+
     // 初始化事件监听器
     function initEventListeners() {
         clearBtn.addEventListener('click', handleClear);
@@ -192,6 +219,14 @@
                 hideResult();
             }
         });
+
+        // 搜索框输入事件
+        var exampleSearch = document.getElementById('exampleSearch');
+        if (exampleSearch) {
+            exampleSearch.addEventListener('input', function() {
+                filterExampleItems(this.value);
+            });
+        }
 
         // 示例区域显示/隐藏切换
         var toggleBtn = document.getElementById('exampleToggle');
@@ -207,10 +242,21 @@
                     exampleItems.offsetHeight;
                     exampleItems.style.maxHeight = '0';
                     exampleItems.classList.remove('expanded');
+                    // 清空搜索框并重置过滤
+                    if (exampleSearch) {
+                        exampleSearch.value = '';
+                        filterExampleItems('');
+                    }
                 } else {
                     // 展开
                     exampleItems.classList.add('expanded');
                     exampleItems.style.maxHeight = exampleItems.scrollHeight + 'px';
+                    // 聚焦搜索框
+                    if (exampleSearch) {
+                        setTimeout(function() {
+                            exampleSearch.focus();
+                        }, 100);
+                    }
                 }
             });
         }
