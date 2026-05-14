@@ -38,6 +38,7 @@ GitLink | [仓库地址](https://gitlink.org.cn/anjisuan608/HONOR-GC-AM-App-Redi
 :--------:|:--------:|:--------------------------------:
 plat | 平台选择 | 支持AM(应用市场)和GC(游戏中心)(默认)
 pkg | 包名 | N/A
+go | 跳转状态 | 布尔值,当处于false时仅手动点击发起跳转
 
 ## 许可
 
