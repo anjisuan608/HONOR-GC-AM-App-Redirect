@@ -42,6 +42,9 @@
     // 示例包名数据缓存
     var examplePackages = [];
 
+    // 是否自动跳转（go=false 时关闭，示例按钮点击也受此控制）
+    var autoRedirect = true;
+
     /**
      * 获取选中的平台
      * @returns {string} 'gc' 或 'am'
@@ -170,11 +173,15 @@
 
             btn.addEventListener('click', function() {
                 pkgInput.value = item.pkg;
-                var platform = getSelectedPlatform();
-                var deepLink = generateDeepLink(platform, item.pkg);
-                resultCode.textContent = '正在发起跳转……';
-                showResult();
-                window.location.href = deepLink;
+                if (autoRedirect) {
+                    var platform = getSelectedPlatform();
+                    var deepLink = generateDeepLink(platform, item.pkg);
+                    resultCode.textContent = '正在发起跳转……';
+                    showResult();
+                    window.location.href = deepLink;
+                } else {
+                    pkgInput.focus();
+                }
             });
 
             container.appendChild(btn);
@@ -319,11 +326,13 @@
 
         // 解析包名参数
         var pkg = (params.get('pkg') || '').trim();
+        // go 不存在或 go=true 时自动跳转，go=false 仅填入
+        var go = params.get('go');
+        autoRedirect = (go !== 'false');
+
         if (pkg) {
             pkgInput.value = pkg;
-            // go 不存在或 go=true 时自动跳转，go=false 仅填入
-            var go = params.get('go');
-            if (go !== 'false') {
+            if (autoRedirect) {
                 handleSubmit();
             }
         }
