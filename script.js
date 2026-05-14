@@ -295,12 +295,6 @@
                     // 展开
                     exampleItems.classList.add('expanded');
                     exampleItems.style.maxHeight = exampleItems.scrollHeight + 'px';
-                    // 聚焦搜索框
-                    if (exampleSearch) {
-                        setTimeout(function() {
-                            exampleSearch.focus();
-                        }, 100);
-                    }
                 }
             });
         }
