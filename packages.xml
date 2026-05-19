@@ -26,9 +26,9 @@
         <note>百度输入法荣耀定制版</note>
     </package>
     <package id="2">
-        <name>笔记(备忘录)</name>
+        <name>笔记</name>
         <pkg>com.hihonor.notepad</pkg>
-        <note>荣耀笔记/备忘录</note>
+        <note>荣耀笔记/荣耀备忘录</note>
     </package>
     <package id="3">
         <name>查找设备</name>
@@ -73,7 +73,7 @@
     <package id="11">
         <name>健康使用设备</name>
         <pkg>com.hihonor.parentcontrol</pkg>
-        <note>健康使用手机/平板</note>
+        <note>健康使用手机/健康使用平板</note>
     </package>
     <package id="12">
         <name>剪映专业版-平板</name>
@@ -108,7 +108,7 @@
     <package id="18">
         <name>录音机</name>
         <pkg>com.hihonor.soundrecorder</pkg>
-        <note>录音机</note>
+        <note>荣耀录音机</note>
     </package>
     <package id="19">
         <name>媒体播放引擎</name>
@@ -148,7 +148,7 @@
     <package id="26">
         <name>荣耀 PC 应用引擎</name>
         <pkg>com.hihonor.pcenginewps</pkg>
-        <note>PC 应用引擎</note>
+        <note>荣耀PC应用引擎</note>
     </package>
     <package id="27">
         <name>荣耀车联</name>
@@ -223,7 +223,7 @@
     <package id="41">
         <name>荣耀文档服务</name>
         <pkg>com.hihonor.fileservice</pkg>
-        <note>荣耀文件服务</note>
+        <note>荣耀文档文件服务</note>
     </package>
     <package id="42">
         <name>荣耀小游戏</name>
@@ -233,12 +233,12 @@
     <package id="43">
         <name>荣耀心脏健康研究</name>
         <pkg>com.hihonor.heartstudy</pkg>
-        <note>心脏健康研究</note>
+        <note>荣耀心脏健康研究</note>
     </package>
     <package id="44">
         <name>荣耀远程服务</name>
         <pkg>com.hihonor.remotedesktop.phone</pkg>
-        <note>远程桌面服务</note>
+        <note>荣耀远程桌面服务</note>
     </package>
     <package id="45">
         <name>荣耀云</name>
