@@ -51,451 +51,541 @@
         <note>负一屏</note>
     </package>
     <package id="7">
+        <name>华为浏览器</name>
+        <pkg>com.huawei.browser</pkg>
+        <note>华为浏览器</note>
+    </package>
+    <package id="8">
+        <name>华为钱包</name>
+        <pkg>com.huawei.wallet</pkg>
+        <note>华为钱包</note>
+    </package>
+    <package id="9">
+        <name>华为商城</name>
+        <pkg>com.vmall.client</pkg>
+        <note>华为官方商城</note>
+    </package>
+    <package id="10">
+        <name>华为视频</name>
+        <pkg>com.huawei.himovie</pkg>
+        <note>华为视频</note>
+    </package>
+    <package id="11">
+        <name>华为手机克隆</name>
+        <pkg>com.hicloud.android.clone</pkg>
+        <note>华为手机克隆</note>
+    </package>
+    <package id="12">
+        <name>华为音乐</name>
+        <pkg>com.huawei.music</pkg>
+        <note>华为音乐</note>
+    </package>
+    <package id="13">
+        <name>华为应用市场</name>
+        <pkg>com.huawei.appmarket</pkg>
+        <note>华为应用市场</note>
+    </package>
+    <package id="14">
+        <name>华为阅读</name>
+        <pkg>com.huawei.hwread.dz</pkg>
+        <note>华为阅读</note>
+    </package>
+    <package id="15">
+        <name>华为运动健康</name>
+        <pkg>com.huawei.health</pkg>
+        <note>华为运动健康</note>
+    </package>
+    <package id="16">
+        <name>华为智慧生活</name>
+        <pkg>com.huawei.smarthome</pkg>
+        <note>华为智慧生活</note>
+    </package>
+    <package id="17">
+        <name>华为智慧音频</name>
+        <pkg>com.huawei.smartaudio</pkg>
+        <note>华为智慧音频</note>
+    </package>
+    <package id="18">
+        <name>华为主题</name>
+        <pkg>com.huawei.android.thememanager</pkg>
+        <note>华为主题管理</note>
+    </package>
+    <package id="19">
         <name>换机克隆</name>
         <pkg>com.hihonor.android.clone</pkg>
         <note>换机克隆</note>
     </package>
-    <package id="8">
+    <package id="20">
         <name>环球行</name>
         <pkg>com.hihonor.redteamobile.roaming</pkg>
         <note>环球行</note>
     </package>
-    <package id="9">
+    <package id="21">
         <name>计算器</name>
         <pkg>com.hihonor.calculator</pkg>
         <note>荣耀计算器</note>
     </package>
-    <package id="10">
+    <package id="22">
         <name>剪辑</name>
         <pkg>com.hihonor.videoeditor</pkg>
         <note>荣耀剪辑</note>
     </package>
-    <package id="11">
+    <package id="23">
         <name>健康使用设备</name>
         <pkg>com.hihonor.parentcontrol</pkg>
         <note>健康使用手机/健康使用平板</note>
     </package>
-    <package id="12">
+    <package id="24">
         <name>剪映专业版-平板</name>
         <pkg>com.lemon.lvpro</pkg>
         <note>剪映专业版平板版</note>
     </package>
-    <package id="13">
+    <package id="25">
         <name>快应用引擎</name>
         <pkg>com.hihonor.quickengine</pkg>
         <note>快应用引擎</note>
     </package>
-    <package id="14">
+    <package id="26">
+        <name>快应用中心</name>
+        <pkg>com.huawei.fastapp</pkg>
+        <note>华为快应用中心</note>
+    </package>
+    <package id="27">
         <name>蜡笔绘画-尝鲜版 PC</name>
         <pkg>com.hihonor.crayonlauncher</pkg>
         <note>蜡笔绘画尝鲜版 PC</note>
     </package>
-    <package id="15">
+    <package id="28">
         <name>连接至 Windows</name>
         <pkg>com.microsoft.appmanager</pkg>
         <note>微软连接至Windows/Microsoft Link to Windows</note>
     </package>
-    <package id="16">
+    <package id="29">
         <name>联系人</name>
         <pkg>com.hihonor.contacts</pkg>
         <note>荣耀联系人</note>
     </package>
-    <package id="17">
+    <package id="30">
         <name>浏览器</name>
         <pkg>com.honor.browser</pkg>
         <note>荣耀浏览器</note>
     </package>
-    <package id="18">
+    <package id="31">
         <name>浏览器(百度版)</name>
         <pkg>com.hihonor.baidu.browser</pkg>
         <note>荣耀浏览器百度定制版</note>
     </package>
-    <package id="19">
+    <package id="32">
         <name>录音机</name>
         <pkg>com.hihonor.soundrecorder</pkg>
         <note>荣耀录音机</note>
     </package>
-    <package id="20">
+    <package id="33">
         <name>媒体播放引擎</name>
         <pkg>com.hihonor.mcs.media.avfoundation</pkg>
         <note>媒体播放引擎</note>
     </package>
-    <package id="21">
+    <package id="34">
         <name>魔法画报</name>
         <pkg>com.hihonor.magazine</pkg>
         <note>荣耀魔法画报</note>
     </package>
-    <package id="22">
+    <package id="35">
         <name>魔法形象</name>
         <pkg>com.hihonor.magicavatar</pkg>
         <note>荣耀魔法形象</note>
     </package>
-    <package id="23">
+    <package id="36">
         <name>屏幕录制</name>
         <pkg>com.hihonor.screenrecorder</pkg>
         <note>屏幕录制</note>
     </package>
-    <package id="24">
+    <package id="37">
+        <name>热门推荐</name>
+        <pkg>com.hihonor.popularapps</pkg>
+        <note>荣耀热门推荐</note>
+    </package>
+    <package id="38">
         <name>日历</name>
         <pkg>com.hihonor.calendar</pkg>
         <note>荣耀日历</note>
     </package>
-    <package id="25">
+    <package id="39">
         <name>融合搜索服务</name>
         <pkg>com.hihonor.searchservice</pkg>
         <note>融合搜索服务</note>
     </package>
-    <package id="26">
+    <package id="40">
         <name>荣耀 AI · 基础服务</name>
         <pkg>com.hihonor.aipluginengine</pkg>
         <note>荣耀智慧引擎</note>
     </package>
-    <package id="27">
+    <package id="41">
         <name>荣耀 PC 应用引擎</name>
         <pkg>com.hihonor.pcenginewps</pkg>
         <note>荣耀PC应用引擎</note>
     </package>
-    <package id="28">
+    <package id="42">
         <name>荣耀 PC 应用专区</name>
         <pkg>com.hihonor.pczone</pkg>
         <note>荣耀PC应用专区</note>
     </package>
-    <package id="29">
+    <package id="43">
         <name>荣耀车联</name>
         <pkg>com.hihonor.auto</pkg>
         <note>荣耀车联</note>
     </package>
-    <package id="30">
+    <package id="44">
         <name>荣耀观影眼镜</name>
         <pkg>com.hihonor.xrmn</pkg>
         <note>荣耀观影眼镜</note>
     </package>
-    <package id="31">
+    <package id="45">
         <name>荣耀基础服务</name>
         <pkg>com.hihonor.id</pkg>
         <note>荣耀账号基础服务</note>
     </package>
-    <package id="32">
+    <package id="46">
         <name>荣耀健康研究</name>
         <pkg>com.honor.research</pkg>
         <note>荣耀健康研究</note>
     </package>
-    <package id="33">
+    <package id="47">
         <name>荣耀快服务</name>
         <pkg>com.hihonor.servicecenter</pkg>
         <note>荣耀快服务中心</note>
     </package>
-    <package id="34">
+    <package id="48">
         <name>荣耀媒体素材服务</name>
         <pkg>com.hihonor.mediamaterial</pkg>
         <note>媒体素材服务</note>
     </package>
-    <package id="35">
+    <package id="49">
         <name>荣耀钱包</name>
         <pkg>com.hihonor.wallet</pkg>
         <note>荣耀钱包</note>
     </package>
-    <package id="36">
+    <package id="50">
         <name>荣耀亲选</name>
         <pkg>cn.honor.qinxuan</pkg>
         <note>荣耀亲选商城</note>
     </package>
-    <package id="37">
+    <package id="51">
         <name>荣耀任意门</name>
         <pkg>com.hihonor.hnmagicportal</pkg>
         <note>荣耀任意门</note>
     </package>
-    <package id="38">
+    <package id="52">
         <name>荣耀商城</name>
         <pkg>com.hihonor.vmall</pkg>
         <note>荣耀官方商城</note>
     </package>
-    <package id="39">
+    <package id="53">
         <name>荣耀搜索</name>
         <pkg>com.hihonor.search</pkg>
         <note>荣耀全局搜索</note>
     </package>
-    <package id="40">
+    <package id="54">
         <name>荣耀推送服务</name>
         <pkg>com.hihonor.android.pushagent</pkg>
         <note>荣耀推送服务</note>
     </package>
-    <package id="41">
+    <package id="55">
         <name>荣耀文档</name>
         <pkg>com.hihonor.hnofficelauncher</pkg>
         <note>荣耀文档启动器</note>
     </package>
-    <package id="42">
+    <package id="56">
         <name>荣耀文档处理服务</name>
         <pkg>com.hihonor.hnoffice</pkg>
         <note>荣耀文档处理引擎</note>
     </package>
-    <package id="43">
+    <package id="57">
         <name>荣耀文档服务</name>
         <pkg>com.hihonor.fileservice</pkg>
         <note>荣耀文档文件服务</note>
     </package>
-    <package id="44">
+    <package id="58">
         <name>荣耀小游戏</name>
         <pkg>com.honor.quickgamecenter</pkg>
         <note>荣耀小游戏中心</note>
     </package>
-    <package id="45">
+    <package id="59">
         <name>荣耀心脏健康研究</name>
         <pkg>com.hihonor.heartstudy</pkg>
         <note>荣耀心脏健康研究</note>
     </package>
-    <package id="46">
+    <package id="60">
         <name>荣耀远程服务</name>
         <pkg>com.hihonor.remotedesktop.phone</pkg>
         <note>荣耀远程桌面服务</note>
     </package>
-    <package id="47">
+    <package id="61">
         <name>荣耀云</name>
         <pkg>com.hihonor.hncloud</pkg>
         <note>荣耀云服务</note>
     </package>
-    <package id="48">
+    <package id="62">
         <name>荣耀运动健康</name>
         <pkg>com.hihonor.health</pkg>
         <note>荣耀运动健康</note>
     </package>
-    <package id="49">
+    <package id="63">
         <name>荣耀智慧空间</name>
         <pkg>com.hihonor.magichome</pkg>
         <note>荣耀智慧空间</note>
     </package>
-    <package id="50">
+    <package id="64">
         <name>荣耀智慧空间基础服务</name>
         <pkg>com.hihonor.sceneservice</pkg>
         <note>智慧空间场景服务</note>
     </package>
-    <package id="51">
+    <package id="65">
         <name>荣耀主题引擎</name>
         <pkg>com.hihonor.mocoolengine</pkg>
         <note>荣耀主题引擎</note>
     </package>
-    <package id="52">
+    <package id="66">
         <name>软件包安装程序</name>
         <pkg>com.android.packageinstaller</pkg>
         <note>软件包安装程序</note>
     </package>
-    <package id="53">
+    <package id="67">
         <name>软件更新</name>
         <pkg>com.hihonor.ouc</pkg>
         <note>系统更新</note>
     </package>
-    <package id="54">
+    <package id="68">
+        <name>生活服务</name>
+        <pkg>com.huawei.lives</pkg>
+        <note>华为生活服务</note>
+    </package>
+    <package id="69">
         <name>视觉服务</name>
         <pkg>com.hihonor.visionengine</pkg>
         <note>视觉引擎服务</note>
     </package>
-    <package id="55">
+    <package id="70">
         <name>视频</name>
         <pkg>com.hihonor.youku.video</pkg>
         <note>优酷视频荣耀版</note>
     </package>
-    <package id="56">
+    <package id="71">
         <name>时钟</name>
         <pkg>com.hihonor.deskclock</pkg>
         <note>荣耀时钟</note>
     </package>
-    <package id="57">
+    <package id="72">
         <name>搜狗输入法荣耀版</name>
         <pkg>com.sohu.inputmethod.sogou.honor</pkg>
         <note>搜狗输入法荣耀定制版</note>
     </package>
-    <package id="58">
+    <package id="73">
         <name>天气</name>
         <pkg>com.hihonor.android.totemweather</pkg>
         <note>荣耀天气</note>
     </package>
-    <package id="59">
+    <package id="74">
         <name>同花顺 PC</name>
         <pkg>com.hihonor.jqkalauncher</pkg>
         <note>同花顺 PC</note>
     </package>
-    <package id="60">
+    <package id="75">
         <name>图库</name>
         <pkg>com.hihonor.photos</pkg>
         <note>荣耀图库</note>
     </package>
-    <package id="61">
+    <package id="76">
         <name>玩机技巧</name>
         <pkg>com.hihonor.tips</pkg>
         <note>玩机技巧</note>
     </package>
-    <package id="62">
+    <package id="77">
         <name>万兴图示 PC</name>
         <pkg>com.hihonor.edrawlauncher</pkg>
         <note>万兴图示 PC 版</note>
     </package>
-    <package id="63">
+    <package id="78">
         <name>文件管理</name>
         <pkg>com.hihonor.filemanager</pkg>
         <note>荣耀文件管理器</note>
     </package>
-    <package id="64">
+    <package id="79">
         <name>我的荣耀</name>
         <pkg>com.hihonor.phoneservice</pkg>
         <note>荣耀服务</note>
     </package>
-    <package id="65">
+    <package id="80">
         <name>系统管家</name>
         <pkg>com.hihonor.devicemanager</pkg>
         <note>荣耀系统管家</note>
     </package>
-    <package id="66">
+    <package id="81">
         <name>系统管家服务</name>
         <pkg>com.hihonor.systemmanager</pkg>
         <note>系统管家服务</note>
     </package>
-    <package id="67">
+    <package id="82">
         <name>系统应用更新器</name>
         <pkg>com.hihonor.systemappsupdater</pkg>
         <note>系统应用更新器</note>
     </package>
-    <package id="68">
+    <package id="83">
         <name>相机</name>
         <pkg>com.hihonor.camera</pkg>
         <note>荣耀相机</note>
     </package>
-    <package id="69">
+    <package id="84">
         <name>小游戏引擎</name>
         <pkg>com.hihonor.quickgame</pkg>
         <note>小游戏运行引擎</note>
     </package>
-    <package id="70">
+    <package id="85">
         <name>信息</name>
         <pkg>com.hihonor.mms</pkg>
         <note>荣耀信息</note>
     </package>
-    <package id="71">
+    <package id="86">
         <name>学习空间</name>
         <pkg>com.hihonor.edulauncher</pkg>
         <note>荣耀学习空间</note>
     </package>
-    <package id="72">
+    <package id="87">
         <name>银联可信服务安全组件</name>
         <pkg>com.unionpay.tsmservice</pkg>
         <note>银联可信服务管理</note>
     </package>
-    <package id="73">
+    <package id="88">
         <name>音乐</name>
         <pkg>com.hihonor.cloudmusic</pkg>
         <note>荣耀音乐</note>
     </package>
-    <package id="74">
+    <package id="89">
         <name>应用市场</name>
         <pkg>com.hihonor.appmarket</pkg>
         <note>荣耀应用市场</note>
     </package>
-    <package id="75">
+    <package id="90">
         <name>游戏管家</name>
         <pkg>com.hihonor.gameassistant</pkg>
         <note>荣耀游戏管家</note>
     </package>
-    <package id="76">
+    <package id="91">
         <name>游戏中心</name>
         <pkg>com.hihonor.gamecenter</pkg>
         <note>荣耀游戏中心</note>
     </package>
-    <package id="77">
+    <package id="92">
         <name>语音服务</name>
         <pkg>com.hihonor.voiceengine</pkg>
         <note>语音引擎服务</note>
     </package>
-    <package id="78">
+    <package id="93">
         <name>阅读</name>
         <pkg>com.hihonor.dz.reader</pkg>
         <note>荣耀阅读</note>
     </package>
-    <package id="79">
+    <package id="94">
+        <name>云空间</name>
+        <pkg>com.huawei.hidisk</pkg>
+        <note>华为云空间</note>
+    </package>
+    <package id="95">
         <name>智慧多窗</name>
         <pkg>com.hihonor.hndockbar</pkg>
         <note>荣耀侧边栏</note>
     </package>
-    <package id="80">
+    <package id="96">
         <name>指南针</name>
         <pkg>com.hihonor.compass</pkg>
         <note>荣耀指南针</note>
     </package>
-    <package id="81">
+    <package id="97">
         <name>智能家居服务</name>
         <pkg>com.hihonor.smartiot</pkg>
         <note>智能家居 IoT 服务</note>
     </package>
-    <package id="82">
+    <package id="98">
         <name>智能检测</name>
         <pkg>com.hihonor.detectrepair</pkg>
         <note>智能检测与修复</note>
     </package>
-    <package id="83">
+    <package id="99">
         <name>智能提醒</name>
         <pkg>com.hihonor.suggestion</pkg>
         <note>智能提醒服务</note>
     </package>
-    <package id="84">
+    <package id="100">
         <name>智能信息插件</name>
         <pkg>com.hihonor.intelligentmessage</pkg>
         <note>智能信息插件</note>
     </package>
-    <package id="85">
+    <package id="101">
         <name>中望 CAD PC</name>
         <pkg>com.hihonor.cadlauncher</pkg>
         <note>中望 CAD PC</note>
     </package>
-    <package id="86">
+    <package id="102">
         <name>主题</name>
         <pkg>com.hihonor.android.thememanager</pkg>
         <note>荣耀主题管理</note>
     </package>
-    <package id="87">
+    <package id="103">
         <name>AI 翻译</name>
         <pkg>com.hihonor.magictranslate</pkg>
         <note>AI 翻译</note>
     </package>
-    <package id="88">
+    <package id="104">
         <name>AI 通话</name>
         <pkg>com.hihonor.recordassistant</pkg>
         <note>录音助理</note>
     </package>
-    <package id="89">
+    <package id="105">
         <name>CAJViewer PC</name>
         <pkg>com.hihonor.cajlauncher</pkg>
         <note>CAJViewer PC</note>
     </package>
-    <package id="90">
+    <package id="106">
         <name>Choice 金融终端 PC</name>
         <pkg>com.eastmoney.choice</pkg>
         <note>Choice 金融终端 PC</note>
     </package>
-    <package id="91">
+    <package id="107">
+        <name>Google Play 商店</name>
+        <pkg>com.android.vending</pkg>
+        <note>Google Play Store</note>
+    </package>
+    <package id="108">
+        <name>HMS Core</name>
+        <pkg>com.huawei.hwid</pkg>
+        <note>HMS Core</note>
+    </package>
+    <package id="109">
         <name>Linux 实验室</name>
         <pkg>com.hihonor.pcengine</pkg>
         <note>荣耀 Linux 实验室</note>
     </package>
-    <package id="92">
+    <package id="110">
         <name>PDF页面管家 尝鲜版 PC</name>
         <pkg>com.hihonor.pdfarrangerlauncher</pkg>
         <note>PDF页面管家 尝鲜版 PC</note>
     </package>
-    <package id="93">
+    <package id="111">
         <name>WPS Office PC</name>
         <pkg>com.hihonor.wpslauncher</pkg>
         <note>WPS Office PC</note>
     </package>
-    <package id="94">
+    <package id="112">
         <name>YOYO 记忆</name>
         <pkg>com.hihonor.collectcenter</pkg>
         <note>收藏空间</note>
     </package>
-    <package id="95">
+    <package id="113">
         <name>YOYO 拍照问</name>
         <pkg>com.hihonor.lens</pkg>
         <note>YOYO 看见/智慧视觉</note>
     </package>
-    <package id="96">
+    <package id="114">
         <name>YOYO 智能体</name>
         <pkg>com.hihonor.magicvoice</pkg>
         <note>YOYO 助理</note>
