@@ -147,8 +147,11 @@
                     });
                 });
                 renderExampleItems();
-                // 数据加载完成后，若 hash 为 #eg 则展开并滚动
-                if (window.location.hash === '#eg') {
+                // 数据加载完成后，处理 #eg hash 或 eg 查询参数
+                var egParam = new URLSearchParams(window.location.search).get('eg');
+                if (egParam && egParam.trim()) {
+                    navigateToExamples(egParam.trim());
+                } else if (window.location.hash === '#eg') {
                     expandExampleList();
                     setTimeout(function() {
                         var target = document.getElementById('eg');
@@ -349,6 +352,7 @@
      * plat: GC（游戏中心）或 AM（应用市场），默认 GC
      * pkg: 包名，若有值则填入输入框
      * go: true（默认）自动跳转，false 仅填入不跳转
+     * eg: 搜索关键词，填入示例搜索框并展开定位
      */
     function handleUrlParams() {
         var params = new URLSearchParams(window.location.search);
@@ -374,6 +378,31 @@
                 handleSubmit();
             }
         }
+
+        // eg 参数在 loadExamplePackages 的 XHR 回调中处理（需要数据就绪后才能过滤）
+    }
+
+    /**
+     * 导航到示例软件区域：填入搜索词、展开列表、滚动定位
+     * @param {string} keyword - 搜索关键词
+     */
+    function navigateToExamples(keyword) {
+        var exampleSearch = document.getElementById('exampleSearch');
+        var searchClear = document.getElementById('searchClear');
+        if (exampleSearch) {
+            exampleSearch.value = keyword;
+            filterExampleItems(keyword);
+            if (searchClear) {
+                searchClear.hidden = !keyword.trim();
+            }
+        }
+        expandExampleList();
+        setTimeout(function() {
+            var target = document.getElementById('eg');
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }, 100);
     }
 
     // 初始化应用
@@ -383,9 +412,9 @@
         handleUrlParams();
         // 监听 hash 变化（页面内导航时）
         window.addEventListener('hashchange', handleHashNavigation);
-        // 仅在无 pkg 参数时聚焦输入框（避免跳转干扰）
+        // 仅在无 pkg/eg 参数时聚焦输入框（避免跳转干扰）
         var params = new URLSearchParams(window.location.search);
-        if (!params.get('pkg')) {
+        if (!params.get('pkg') && !params.get('eg')) {
             pkgInput.focus();
         }
     }
