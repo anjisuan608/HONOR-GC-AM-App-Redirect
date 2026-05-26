@@ -147,6 +147,16 @@
                     });
                 });
                 renderExampleItems();
+                // 数据加载完成后，若 hash 为 #eg 则展开并滚动
+                if (window.location.hash === '#eg') {
+                    expandExampleList();
+                    setTimeout(function() {
+                        var target = document.getElementById('eg');
+                        if (target) {
+                            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    }, 100);
+                }
             }
         };
         xhr.send();
@@ -301,6 +311,40 @@
     }
 
     /**
+     * 展开示例软件列表
+     */
+    function expandExampleList() {
+        var toggleBtn = document.getElementById('exampleToggle');
+        var exampleItems = document.getElementById('exampleItems');
+        if (toggleBtn && exampleItems) {
+            var expanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+            if (!expanded) {
+                toggleBtn.setAttribute('aria-expanded', 'true');
+                exampleItems.classList.add('expanded');
+                exampleItems.style.maxHeight = exampleItems.scrollHeight + 'px';
+            }
+        }
+    }
+
+    /**
+     * 处理 hash 导航
+     * #eg: 定位并展开示例软件列表
+     */
+    function handleHashNavigation() {
+        var hash = window.location.hash;
+        if (hash === '#eg') {
+            expandExampleList();
+            // 等待展开动画完成后再滚动，确保目标位置准确
+            setTimeout(function() {
+                var target = document.getElementById('eg');
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 100);
+        }
+    }
+
+    /**
      * 解析 URL 查询参数并执行对应操作
      * plat: GC（游戏中心）或 AM（应用市场），默认 GC
      * pkg: 包名，若有值则填入输入框
@@ -337,6 +381,8 @@
         initEventListeners();
         loadExamplePackages();
         handleUrlParams();
+        // 监听 hash 变化（页面内导航时）
+        window.addEventListener('hashchange', handleHashNavigation);
         // 仅在无 pkg 参数时聚焦输入框（避免跳转干扰）
         var params = new URLSearchParams(window.location.search);
         if (!params.get('pkg')) {
