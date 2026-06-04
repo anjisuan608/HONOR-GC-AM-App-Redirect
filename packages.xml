@@ -481,111 +481,116 @@
         <note>语音引擎服务</note>
     </package>
     <package id="93">
+        <name>远程协助</name>
+        <pkg>com.hihonor.remoteassist</pkg>
+        <note>远程协助</note>
+    </package>
+    <package id="94">
         <name>阅读</name>
         <pkg>com.hihonor.dz.reader</pkg>
         <note>荣耀阅读</note>
     </package>
-    <package id="94">
+    <package id="95">
         <name>云空间</name>
         <pkg>com.huawei.hidisk</pkg>
         <note>华为云空间</note>
     </package>
-    <package id="95">
+    <package id="96">
         <name>智慧多窗</name>
         <pkg>com.hihonor.hndockbar</pkg>
         <note>荣耀侧边栏</note>
     </package>
-    <package id="96">
+    <package id="97">
         <name>指南针</name>
         <pkg>com.hihonor.compass</pkg>
         <note>荣耀指南针</note>
     </package>
-    <package id="97">
+    <package id="98">
         <name>智能家居服务</name>
         <pkg>com.hihonor.smartiot</pkg>
         <note>智能家居 IoT 服务</note>
     </package>
-    <package id="98">
+    <package id="99">
         <name>智能检测</name>
         <pkg>com.hihonor.detectrepair</pkg>
         <note>智能检测与修复</note>
     </package>
-    <package id="99">
+    <package id="100">
         <name>智能提醒</name>
         <pkg>com.hihonor.suggestion</pkg>
         <note>智能提醒服务</note>
     </package>
-    <package id="100">
+    <package id="101">
         <name>智能信息插件</name>
         <pkg>com.hihonor.intelligentmessage</pkg>
         <note>智能信息插件</note>
     </package>
-    <package id="101">
+    <package id="102">
         <name>中望 CAD PC</name>
         <pkg>com.hihonor.cadlauncher</pkg>
         <note>中望 CAD PC</note>
     </package>
-    <package id="102">
+    <package id="103">
         <name>主题</name>
         <pkg>com.hihonor.android.thememanager</pkg>
         <note>荣耀主题管理</note>
     </package>
-    <package id="103">
+    <package id="104">
         <name>AI 翻译</name>
         <pkg>com.hihonor.magictranslate</pkg>
         <note>AI 翻译</note>
     </package>
-    <package id="104">
+    <package id="105">
         <name>AI 通话</name>
         <pkg>com.hihonor.recordassistant</pkg>
         <note>录音助理</note>
     </package>
-    <package id="105">
+    <package id="106">
         <name>CAJViewer PC</name>
         <pkg>com.hihonor.cajlauncher</pkg>
         <note>CAJViewer PC</note>
     </package>
-    <package id="106">
+    <package id="107">
         <name>Choice 金融终端 PC</name>
         <pkg>com.eastmoney.choice</pkg>
         <note>Choice 金融终端 PC</note>
     </package>
-    <package id="107">
+    <package id="108">
         <name>Google Play 商店</name>
         <pkg>com.android.vending</pkg>
         <note>Google Play Store</note>
     </package>
-    <package id="108">
+    <package id="109">
         <name>HMS Core</name>
         <pkg>com.huawei.hwid</pkg>
         <note>HMS Core</note>
     </package>
-    <package id="109">
+    <package id="110">
         <name>Linux 实验室</name>
         <pkg>com.hihonor.pcengine</pkg>
         <note>荣耀 Linux 实验室</note>
     </package>
-    <package id="110">
+    <package id="111">
         <name>PDF页面管家 尝鲜版 PC</name>
         <pkg>com.hihonor.pdfarrangerlauncher</pkg>
         <note>PDF页面管家 尝鲜版 PC</note>
     </package>
-    <package id="111">
+    <package id="112">
         <name>WPS Office PC</name>
         <pkg>com.hihonor.wpslauncher</pkg>
         <note>WPS Office PC</note>
     </package>
-    <package id="112">
+    <package id="113">
         <name>YOYO 记忆</name>
         <pkg>com.hihonor.collectcenter</pkg>
         <note>收藏空间</note>
     </package>
-    <package id="113">
+    <package id="114">
         <name>YOYO 拍照问</name>
         <pkg>com.hihonor.lens</pkg>
         <note>YOYO 看见/智慧视觉</note>
     </package>
-    <package id="114">
+    <package id="115">
         <name>YOYO 智能体</name>
         <pkg>com.hihonor.magicvoice</pkg>
         <note>YOYO 助理</note>
