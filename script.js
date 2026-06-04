@@ -134,35 +134,243 @@
         var xhr = new XMLHttpRequest();
         xhr.open('GET', 'packages.xml', true);
         xhr.responseType = 'document';
+        xhr.timeout = 10000;
         xhr.onload = function() {
             if (xhr.status === 200 && xhr.responseXML) {
                 var packages = xhr.responseXML.querySelectorAll('package');
-                examplePackages = [];
-                packages.forEach(function(pkg) {
-                    examplePackages.push({
-                        id: pkg.getAttribute('id'),
-                        name: pkg.querySelector('name').textContent,
-                        pkg: pkg.querySelector('pkg').textContent,
-                        note: pkg.querySelector('note').textContent
-                    });
-                });
-                renderExampleItems();
-                // 数据加载完成后，处理 #eg hash 或 eg 查询参数
-                var egParam = new URLSearchParams(window.location.search).get('eg');
-                if (egParam && egParam.trim()) {
-                    navigateToExamples(egParam.trim());
-                } else if (window.location.hash === '#eg') {
-                    expandExampleList();
-                    setTimeout(function() {
-                        var target = document.getElementById('eg');
-                        if (target) {
-                            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        }
-                    }, 100);
-                }
+                parseAndValidatePackages(packages);
+            } else if (xhr.status === 200 && !xhr.responseXML) {
+                showExampleError([{
+                    type: 'load',
+                    message: 'packages.xml 格式错误，无法解析'
+                }]);
+            } else {
+                showExampleError([{
+                    type: 'load',
+                    message: '无法加载示例包名列表（HTTP ' + xhr.status + '）'
+                }]);
             }
         };
+        xhr.onerror = function() {
+            showExampleError([{
+                type: 'load',
+                message: '网络错误，无法加载示例包名列表'
+            }]);
+        };
+        xhr.ontimeout = function() {
+            showExampleError([{
+                type: 'load',
+                message: '加载超时，无法加载示例包名列表'
+            }]);
+        };
         xhr.send();
+    }
+
+    /**
+     * 解析并校验包名数据
+     * @param {NodeList} packageNodes - XML 中的 package 节点列表
+     */
+    function parseAndValidatePackages(packageNodes) {
+        var warnings = [];
+        var duplicateIds = [];
+        var idMap = {};
+        var validItems = [];
+
+        // 空列表检查
+        if (packageNodes.length === 0) {
+            showExampleError([{
+                type: 'empty',
+                message: '示例包名列表为空'
+            }]);
+            return;
+        }
+
+        packageNodes.forEach(function(pkg) {
+            var id = pkg.getAttribute('id');
+            var nameEl = pkg.querySelector('name');
+            var pkgEl = pkg.querySelector('pkg');
+            var noteEl = pkg.querySelector('note');
+            var type = pkg.getAttribute('type') || '';
+
+            // 必填字段检查
+            if (!nameEl || !nameEl.textContent.trim() || !pkgEl || !pkgEl.textContent.trim()) {
+                warnings.push('条目缺少必填字段（name 或 pkg），已跳过：id=' + (id || '(无)'));
+                return;
+            }
+
+            // ID 有效性检查
+            if (!id || !/^\d+$/.test(id) || parseInt(id) <= 0) {
+                warnings.push({
+                    type: 'invalid-id',
+                    message: '条目 id 非法（需为正整数）：' + nameEl.textContent.trim() + '（id=' + (id || '(无)') + '）',
+                    canIgnore: true
+                });
+                return;
+            }
+
+            // 重复 ID 记录
+            if (idMap[id]) {
+                idMap[id].count++;
+                idMap[id].names.push(nameEl.textContent.trim());
+            } else {
+                idMap[id] = { count: 1, names: [nameEl.textContent.trim()] };
+            }
+
+            validItems.push({
+                id: id,
+                type: type,
+                name: nameEl.textContent.trim(),
+                pkg: pkgEl.textContent.trim(),
+                note: noteEl ? noteEl.textContent.trim() : ''
+            });
+        });
+
+        // 检查重复 ID
+        for (var id in idMap) {
+            if (idMap[id].count > 1) {
+                duplicateIds.push({ id: id, names: idMap[id].names });
+            }
+        }
+
+        // 解析后列表为空
+        if (validItems.length === 0) {
+            var allErrors = warnings.map(function(msg) {
+                return { type: 'warning', message: msg };
+            });
+            allErrors.push({ type: 'empty', message: '解析后示例包名列表为空（所有条目均无效）' });
+            showExampleError(allErrors);
+            return;
+        }
+
+        // 构建错误列表
+        var errors = [];
+        var hasBlocking = false;
+
+        warnings.forEach(function(w) {
+            if (typeof w === 'string') {
+                // 普通警告（缺字段等），自动跳过并加载
+                errors.push({ type: 'warning', message: w });
+            } else {
+                // 可忽略的阻塞错误（非法 id 等）
+                errors.push(w);
+                if (w.canIgnore) {
+                    hasBlocking = true;
+                }
+            }
+        });
+
+        if (duplicateIds.length > 0) {
+            var dupMsg = duplicateIds.map(function(dup) {
+                return 'id=' + dup.id + '（' + dup.names.join('、') + '）';
+            }).join('、');
+            errors.push({
+                type: 'duplicate-id',
+                message: '存在重复 id：' + dupMsg,
+                canIgnore: true
+            });
+            hasBlocking = true;
+        }
+
+        if (errors.length > 0) {
+            showExampleError(errors, validItems, !hasBlocking);
+        } else {
+            clearExampleError();
+            examplePackages = validItems;
+            proceedAfterLoad();
+        }
+    }
+
+    /**
+     * 数据校验通过后的后续流程
+     */
+    function proceedAfterLoad() {
+        renderExampleItems();
+        // 数据加载完成后，处理 #eg hash 或 eg 查询参数
+        var egParam = new URLSearchParams(window.location.search).get('eg');
+        if (egParam && egParam.trim()) {
+            navigateToExamples(egParam.trim());
+        } else if (window.location.hash === '#eg') {
+            expandExampleList();
+            setTimeout(function() {
+                var target = document.getElementById('eg');
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 100);
+        }
+    }
+
+    /**
+     * 显示示例区域错误提示
+     * @param {Array} errors - 错误列表 [{ type, message, canIgnore? }]
+     * @param {Array} [validItems] - 校验通过的数据（点击后加载）
+     * @param {boolean} [autoLoad] - 是否自动加载列表（无阻塞错误时）
+     */
+    function showExampleError(errors, validItems, autoLoad) {
+        var container = document.getElementById('exampleError');
+        if (!container) return;
+
+        container.innerHTML = '';
+        container.hidden = false;
+
+        errors.forEach(function(error) {
+            var msg = document.createElement('div');
+            msg.className = 'example-error-msg';
+            msg.textContent = error.message;
+            container.appendChild(msg);
+        });
+
+        // 可忽略错误添加按钮
+        var hasIgnore = errors.some(function(e) { return e.canIgnore; });
+        if (hasIgnore) {
+            var btn = document.createElement('button');
+            btn.className = 'example-error-btn';
+            btn.type = 'button';
+            btn.textContent = '加载列表';
+            btn.addEventListener('click', function() {
+                // 隐藏按钮，保留提示
+                btn.hidden = true;
+                if (validItems && validItems.length > 0) {
+                    examplePackages = validItems;
+                    renderExampleItems();
+                    // 列表已展开，更新 maxHeight 适配新内容
+                    var exampleItems = document.getElementById('exampleItems');
+                    if (exampleItems && exampleItems.classList.contains('expanded')) {
+                        exampleItems.style.maxHeight = exampleItems.scrollHeight + 'px';
+                    }
+                    // 处理 hash/eg 参数
+                    var egParam = new URLSearchParams(window.location.search).get('eg');
+                    if (egParam && egParam.trim()) {
+                        navigateToExamples(egParam.trim());
+                    } else if (window.location.hash === '#eg') {
+                        setTimeout(function() {
+                            var target = document.getElementById('eg');
+                            if (target) {
+                                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            }
+                        }, 100);
+                    }
+                }
+            });
+            container.appendChild(btn);
+        }
+
+        // 无阻塞错误时同时加载列表
+        if (autoLoad && validItems) {
+            examplePackages = validItems;
+            proceedAfterLoad();
+        }
+    }
+
+    /**
+     * 清除示例区域错误提示
+     */
+    function clearExampleError() {
+        var container = document.getElementById('exampleError');
+        if (container) {
+            container.innerHTML = '';
+            container.hidden = true;
+        }
     }
 
     /**
