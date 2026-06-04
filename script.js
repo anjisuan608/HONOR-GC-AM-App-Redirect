@@ -173,6 +173,8 @@
         if (!container) return;
 
         container.innerHTML = '';
+        // 按 id 数值升序排序
+        examplePackages.sort(function(a, b) { return parseInt(a.id) - parseInt(b.id); });
         examplePackages.forEach(function(item) {
             var btn = document.createElement('button');
             btn.className = 'example-chip';
