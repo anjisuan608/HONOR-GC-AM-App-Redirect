@@ -155,7 +155,7 @@
         <pkg>com.hihonor.crayonlauncher</pkg>
         <note>蜡笔绘画尝鲜版 PC</note>
     </package>
-    <package id="28" type="honor" platform="phone">
+    <package id="28" type="other" platform="phone">
         <name>连接至 Windows</name>
         <pkg>com.microsoft.appmanager</pkg>
         <note>微软连接至Windows/Microsoft Link to Windows</note>
@@ -555,7 +555,7 @@
         <pkg>com.eastmoney.choice</pkg>
         <note>Choice 金融终端 PC</note>
     </package>
-    <package id="108" type="honor">
+    <package id="108" type="other">
         <name>Google Play 商店</name>
         <pkg>com.android.vending</pkg>
         <note>Google Play Store</note>
