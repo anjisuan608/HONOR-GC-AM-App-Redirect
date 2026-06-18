@@ -1013,14 +1013,14 @@ body {
 
 /* 滚动条样式：默认隐藏轨道，仅保留窄滚动条。鼠标 hover 列表时才显示完整轨道 */
 .example-items::-webkit-scrollbar {
-    width: 8px;
+    width: 4px;
 }
 .example-items::-webkit-scrollbar-track {
     background: transparent;
 }
 .example-items::-webkit-scrollbar-thumb {
     background: color-mix(in srgb, var(--md3-on-surface-variant) 25%, transparent);
-    border-radius: 4px;
+    border-radius: 2px;
 }
 .example-items:hover::-webkit-scrollbar-thumb {
     background: color-mix(in srgb, var(--md3-on-surface-variant) 50%, transparent);
