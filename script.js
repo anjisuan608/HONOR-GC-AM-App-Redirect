@@ -49,8 +49,8 @@
     var filterEnabled = false;  // 筛选器是否启用（由 toggle 开关状态控制：filterEnabled = filterActive）
     var filterActive = false;   // 筛选开关是否打开（面板内的 toggle，默认关闭）
     // 组级筛选开关：type 控制 honor/huawei/other，platform 控制 universal/phone/tablet
-    var typeFilterActive = false;     // 应用类型组开关
-    var platformFilterActive = false; // 应用平台组开关
+    var typeFilterActive = true;     // 应用类型组开关（默认启用）
+    var platformFilterActive = true; // 应用平台组开关（默认启用）
 
     // 类型分类集合：哪些 category 受 type 组开关影响
     var TYPE_CATEGORIES = ['honor', 'huawei', 'other'];
@@ -846,6 +846,22 @@
         } else if (select === 'false') {
             filterActive = false;
             filterEnabled = false;
+        }
+        updateFilterPanelUI();
+
+        // 解析组级筛选开关：platform / type
+        // 不传或传 true → 保持默认（启用）；传 false → 关闭
+        var platformParam = params.get('platform');
+        if (platformParam === 'false') {
+            platformFilterActive = false;
+        } else if (platformParam === 'true') {
+            platformFilterActive = true;
+        }
+        var typeParam = params.get('type');
+        if (typeParam === 'false') {
+            typeFilterActive = false;
+        } else if (typeParam === 'true') {
+            typeFilterActive = true;
         }
         updateFilterPanelUI();
 
