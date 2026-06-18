@@ -339,14 +339,26 @@
         if (!container) return;
 
         container.innerHTML = '';
-        container.hidden = false;
+
+        // 警告图标
+        var iconWrap = document.createElement('span');
+        iconWrap.className = 'example-error-icon';
+        iconWrap.setAttribute('aria-hidden', 'true');
+        iconWrap.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="m40-120 440-760 440 760H40Zm138-80h604L480-720 178-200Zm330.5-51.5Q520-263 520-280t-11.5-28.5Q497-320 480-320t-28.5 11.5Q440-297 440-280t11.5 28.5Q463-240 480-240t28.5-11.5ZM440-360h80v-200h-80v200Zm40-100Z"/></svg>';
+        container.appendChild(iconWrap);
+
+        var contentWrap = document.createElement('div');
+        contentWrap.className = 'example-error-content';
 
         errors.forEach(function(error) {
             var msg = document.createElement('div');
             msg.className = 'example-error-msg';
             msg.textContent = error.message;
-            container.appendChild(msg);
+            contentWrap.appendChild(msg);
         });
+
+        container.appendChild(contentWrap);
+        container.hidden = false;
 
         // 可忽略错误添加按钮
         var hasIgnore = errors.some(function(e) { return e.canIgnore; });
@@ -380,7 +392,7 @@
                     }
                 }
             });
-            container.appendChild(btn);
+            contentWrap.appendChild(btn);
         }
 
         // 无阻塞错误时同时加载列表
@@ -817,9 +829,32 @@
      */
     function handleUrlParams() {
         var params = new URLSearchParams(window.location.search);
+        var ignoredParams = [];  // 收集被忽略的非法参数
+
+        // 检测未定义的参数（白名单外的任何参数名）
+        var allowedParams = ['plat', 'pkg', 'go', 'eg', 'filter', 'select', 'platform', 'type',
+                             'honor', 'huawei', 'other', 'universal', 'phone', 'tablet'];
+        var unknownCount = 0;
+        params.forEach(function(value, key) {
+            if (allowedParams.indexOf(key) === -1) {
+                unknownCount++;
+            }
+        });
+        if (unknownCount > 0) {
+            ignoredParams.push({
+                name: '',
+                value: '',
+                reason: '使用了' + unknownCount + '个不受支持的参数',
+                hideName: true
+            });
+        }
 
         // 解析平台参数
-        var plat = (params.get('plat') || '').toUpperCase();
+        var platRaw = params.get('plat');
+        var plat = (platRaw || '').toUpperCase();
+        if (platRaw !== null && platRaw !== '' && plat !== 'AM' && plat !== 'GC') {
+            ignoredParams.push({ name: 'plat', value: platRaw, reason: '仅支持 GC（游戏中心）或 AM（应用市场）' });
+        }
         if (plat === 'AM') {
             document.getElementById('am').checked = true;
         } else {
@@ -831,6 +866,9 @@
         var pkg = (params.get('pkg') || '').trim();
         // go 不存在或 go=true 时自动跳转，go=false 仅填入
         var go = params.get('go');
+        if (go !== null && go !== '' && go !== 'true' && go !== 'false') {
+            ignoredParams.push({ name: 'go', value: go, reason: '仅支持 true（自动跳转）或 false（仅填入）' });
+        }
         autoRedirect = (go !== 'false');
 
         if (pkg) {
@@ -840,9 +878,18 @@
             }
         }
 
+        // 检测 filter 参数合法性（仅在 proceedAfterLoad 中实际生效）
+        var filterParam = params.get('filter');
+        if (filterParam !== null && filterParam !== '' && filterParam !== 'true' && filterParam !== 'false') {
+            ignoredParams.push({ name: 'filter', value: filterParam, reason: '仅支持 true（列表已展开时自动展开筛选器）' });
+        }
+
         // 解析筛选器开关（select）：控制默认启用/禁用状态
         // 不传 → 保持 JS 初始默认；select=true → 启用；select=false → 禁用
         var select = params.get('select');
+        if (select !== null && select !== '' && select !== 'true' && select !== 'false') {
+            ignoredParams.push({ name: 'select', value: select, reason: '仅支持 true 或 false' });
+        }
         if (select === 'true') {
             filterActive = true;
             filterEnabled = true;
@@ -855,12 +902,18 @@
         // 解析组级筛选开关：platform / type
         // 不传或传 true → 保持默认（启用）；传 false → 关闭
         var platformParam = params.get('platform');
+        if (platformParam !== null && platformParam !== '' && platformParam !== 'true' && platformParam !== 'false') {
+            ignoredParams.push({ name: 'platform', value: platformParam, reason: '仅支持 true 或 false' });
+        }
         if (platformParam === 'false') {
             platformFilterActive = false;
         } else if (platformParam === 'true') {
             platformFilterActive = true;
         }
         var typeParam = params.get('type');
+        if (typeParam !== null && typeParam !== '' && typeParam !== 'true' && typeParam !== 'false') {
+            ignoredParams.push({ name: 'type', value: typeParam, reason: '仅支持 true 或 false' });
+        }
         if (typeParam === 'false') {
             typeFilterActive = false;
         } else if (typeParam === 'true') {
@@ -872,6 +925,10 @@
         // 不传 → 保持当前；传 true → 勾选；传 false → 取消勾选
         ['honor', 'tablet', 'phone', 'huawei', 'other', 'universal'].forEach(function(cat) {
             var val = params.get(cat);
+            if (val !== null && val !== '' && val !== 'true' && val !== 'false') {
+                ignoredParams.push({ name: cat, value: val, reason: '仅支持 true 或 false' });
+                return;
+            }
             if (val === 'true' || val === 'false') {
                 var label = document.querySelector('#filterCheckboxRow .filter-checkbox[data-category="' + cat + '"]');
                 if (label) {
@@ -882,8 +939,36 @@
         });
         applyCategoryFilter();
 
+        // 渲染被忽略参数的警告
+        renderUrlParamWarning(ignoredParams);
+
         // eg 参数在 loadExamplePackages 的 XHR 回调中处理（需要数据就绪后才能过滤）
         // filter 参数在 proceedAfterLoad 中处理（需要列表展开后才能看到面板）
+    }
+
+    /**
+     * 渲染 URL 参数警告提示
+     * @param {Array} ignoredParams - 被忽略的参数列表 [{name, value, reason, hideName?}]
+     */
+    function renderUrlParamWarning(ignoredParams) {
+        var container = document.getElementById('urlParamWarning');
+        var list = document.getElementById('urlParamWarningList');
+        if (!container || !list) return;
+
+        if (!ignoredParams || ignoredParams.length === 0) {
+            container.hidden = true;
+            list.innerHTML = '';
+            return;
+        }
+
+        list.innerHTML = '';
+        ignoredParams.forEach(function(item) {
+            var li = document.createElement('li');
+            // hideName=true 时只显示 reason，不暴露参数名（如未定义参数）
+            li.textContent = item.hideName ? item.reason : (item.name + '：' + item.reason);
+            list.appendChild(li);
+        });
+        container.hidden = false;
     }
 
     /**
