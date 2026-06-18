@@ -46,8 +46,8 @@
     var autoRedirect = true;
 
     // 筛选器状态
-    var filterEnabled = false;  // 筛选器是否启用（用户点击过筛选按钮后启用）
-    var filterActive = true;    // 筛选开关是否打开（面板内的 toggle）
+    var filterEnabled = false;  // 筛选器是否启用（由 toggle 开关状态控制：filterEnabled = filterActive）
+    var filterActive = false;   // 筛选开关是否打开（面板内的 toggle，默认关闭）
 
     /**
      * 获取选中的平台
@@ -292,7 +292,9 @@
     function proceedAfterLoad() {
         renderExampleItems();
         // 数据加载完成后，处理 #eg hash 或 eg 查询参数
-        var egParam = new URLSearchParams(window.location.search).get('eg');
+        var params = new URLSearchParams(window.location.search);
+        var filterParam = params.get('filter') === 'true';
+        var egParam = params.get('eg');
         if (egParam && egParam.trim()) {
             navigateToExamples(egParam.trim());
         } else if (window.location.hash === '#eg') {
@@ -303,6 +305,15 @@
                     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             }, 100);
+        }
+
+        // filter=true 时展开筛选器面板（需要列表已展开才能看到）
+        if (filterParam) {
+            var toggleBtnEl = document.getElementById('exampleToggle');
+            if (toggleBtnEl && toggleBtnEl.getAttribute('aria-expanded') === 'true') {
+                var filterPanel = document.getElementById('exampleFilterPanel');
+                if (filterPanel) filterPanel.hidden = false;
+            }
         }
     }
 
@@ -590,20 +601,7 @@
         var filterPanel = document.getElementById('exampleFilterPanel');
         if (filterBtn && filterPanel) {
             filterBtn.addEventListener('click', function() {
-                var isVisible = !filterPanel.hidden;
-                filterPanel.hidden = isVisible;
-                // 首次展开时启用筛选器
-                if (!isVisible && !filterEnabled) {
-                    filterEnabled = true;
-                    filterActive = true;
-                    updateFilterPanelUI();
-                    applyCategoryFilter();
-                    // 更新列表 maxHeight
-                    var exampleItemsEl = document.getElementById('exampleItems');
-                    if (exampleItemsEl && exampleItemsEl.classList.contains('expanded')) {
-                        exampleItemsEl.style.maxHeight = exampleItemsEl.scrollHeight + 'px';
-                    }
-                }
+                filterPanel.hidden = !filterPanel.hidden;
             });
         }
 
@@ -612,13 +610,9 @@
         if (filterToggleBtn) {
             filterToggleBtn.addEventListener('click', function() {
                 filterActive = !filterActive;
+                filterEnabled = filterActive;
                 updateFilterPanelUI();
                 applyCategoryFilter();
-                // 更新列表 maxHeight
-                var exampleItemsEl = document.getElementById('exampleItems');
-                if (exampleItemsEl && exampleItemsEl.classList.contains('expanded')) {
-                    exampleItemsEl.style.maxHeight = exampleItemsEl.scrollHeight + 'px';
-                }
             });
         }
 
@@ -663,6 +657,11 @@
                     // 展开
                     exampleItems.classList.add('expanded');
                     exampleItems.style.maxHeight = exampleItems.scrollHeight + 'px';
+                    // filter=true 时同步展开筛选器面板
+                    if (new URLSearchParams(window.location.search).get('filter') === 'true') {
+                        var filterPanel = document.getElementById('exampleFilterPanel');
+                        if (filterPanel) filterPanel.hidden = false;
+                    }
                 }
             });
         }
@@ -734,7 +733,34 @@
             }
         }
 
+        // 解析筛选器开关（select）：控制默认启用/禁用状态
+        // 不传 → 保持 JS 初始默认；select=true → 启用；select=false → 禁用
+        var select = params.get('select');
+        if (select === 'true') {
+            filterActive = true;
+            filterEnabled = true;
+        } else if (select === 'false') {
+            filterActive = false;
+            filterEnabled = false;
+        }
+        updateFilterPanelUI();
+
+        // 解析分类勾选：honor/tablet/phone/huawei/other
+        // 不传或传 true → 勾选；传 false → 取消勾选
+        ['honor', 'tablet', 'phone', 'huawei', 'other'].forEach(function(cat) {
+            var val = params.get(cat);
+            if (val === 'false') {
+                var label = document.querySelector('#filterCheckboxRow .filter-checkbox[data-category="' + cat + '"]');
+                if (label) {
+                    var cb = label.querySelector('input[type="checkbox"]');
+                    if (cb) cb.checked = false;
+                }
+            }
+        });
+        applyCategoryFilter();
+
         // eg 参数在 loadExamplePackages 的 XHR 回调中处理（需要数据就绪后才能过滤）
+        // filter 参数在 proceedAfterLoad 中处理（需要列表展开后才能看到面板）
     }
 
     /**
@@ -763,6 +789,7 @@
     // 初始化应用
     function init() {
         initEventListeners();
+        updateFilterPanelUI();
         loadExamplePackages();
         handleUrlParams();
         // 监听 hash 变化（页面内导航时）
