@@ -496,59 +496,42 @@
 
     /**
      * 根据搜索关键词过滤示例按钮显示
-     * 搜索在分类筛选结果基础上进一步过滤
+     * 先应用分类筛选（applyCategoryFilter），再叠加搜索过滤
      * @param {string} keyword - 搜索关键词
      */
     function filterExampleItems(keyword) {
         var container = document.getElementById('exampleItems');
         if (!container) return;
 
-        var chips = container.querySelectorAll('.example-chip');
+        // 先应用分类筛选
+        applyCategoryFilter();
+
+        // 再叠加搜索过滤
         var lowerKeyword = keyword.toLowerCase().trim();
+        if (!lowerKeyword) return;  // 无搜索词，分类筛选已处理完毕
 
+        var chips = container.querySelectorAll('.example-chip');
         chips.forEach(function(chip) {
-            // 先按分类筛选判断（未启用或开关关闭时不筛选）
-            var type = chip.getAttribute('data-type') || '';
-            var platform = chip.getAttribute('data-platform') || '';
-            var categoryVisible = true;
+            if (chip.style.display === 'none') return;  // 已被分类筛掉
 
-            if (filterEnabled && filterActive) {
-                var selectedCategories = {};
-                var labels = document.querySelectorAll('#filterCheckboxRow .filter-checkbox');
-                labels.forEach(function(label) {
-                    var cb = label.querySelector('input[type="checkbox"]');
-                    if (cb && cb.checked) {
-                        selectedCategories[label.getAttribute('data-category')] = true;
-                    }
-                });
-
-                // AND 逻辑：应用若属于被取消勾选的分类则隐藏
-                // type 组：组开关关闭时该组所有 category 视为全部勾选（不过滤）
-                if (typeFilterActive) {
-                    if (type === 'honor' && !selectedCategories['honor']) categoryVisible = false;
-                    if (type === 'huawei' && !selectedCategories['huawei']) categoryVisible = false;
-                    if (isOther(type, platform) && !selectedCategories['other']) categoryVisible = false;
-                }
-                // platform 组：组开关关闭时该组所有 category 视为全部勾选（不过滤）
-                if (platformFilterActive) {
-                    if (platform === 'tablet' && !selectedCategories['tablet']) categoryVisible = false;
-                    if (platform === 'phone' && !selectedCategories['phone']) categoryVisible = false;
-                    if (isUniversal(type, platform) && !selectedCategories['universal']) categoryVisible = false;
-                }
-            }
-
-            // 再按搜索关键词判断
             var name = chip.querySelector('span').textContent.toLowerCase();
             var pkg = chip.getAttribute('data-pkg').toLowerCase();
             var note = (chip.getAttribute('title') || '').toLowerCase();
 
-            var searchVisible = !lowerKeyword ||
-                name.includes(lowerKeyword) ||
-                pkg.includes(lowerKeyword) ||
-                note.includes(lowerKeyword);
-
-            chip.style.display = (categoryVisible && searchVisible) ? '' : 'none';
+            var searchVisible = name.includes(lowerKeyword) ||
+                                pkg.includes(lowerKeyword) ||
+                                note.includes(lowerKeyword);
+            if (!searchVisible) chip.style.display = 'none';
         });
+    }
+
+    /**
+     * 应用当前过滤状态（分类 + 搜索），供筛选器变化等场景调用
+     */
+    function applyCurrentFilter() {
+        var exampleSearch = document.getElementById('exampleSearch');
+        var keyword = exampleSearch ? exampleSearch.value : '';
+        filterExampleItems(keyword);
     }
 
     /**
@@ -561,7 +544,7 @@
 
         var chips = container.querySelectorAll('.example-chip');
 
-        if (!filterEnabled || !filterActive) {
+        if (!filterActive) {
             // 筛选器未启用或开关关闭，显示全部
             chips.forEach(function(chip) { chip.style.display = ''; });
             return;
@@ -686,6 +669,11 @@
                 if (searchClear) {
                     searchClear.hidden = !this.value.trim();
                 }
+                // 更新列表 maxHeight
+                var exampleItemsEl = document.getElementById('exampleItems');
+                if (exampleItemsEl && exampleItemsEl.classList.contains('expanded')) {
+                    exampleItemsEl.style.maxHeight = exampleItemsEl.scrollHeight + 'px';
+                }
             });
         }
         // 清空按钮点击事件
@@ -696,6 +684,11 @@
                     filterExampleItems('');
                     this.hidden = true;
                     exampleSearch.focus();
+                    // 更新列表 maxHeight
+                    var exampleItemsEl = document.getElementById('exampleItems');
+                    if (exampleItemsEl && exampleItemsEl.classList.contains('expanded')) {
+                        exampleItemsEl.style.maxHeight = exampleItemsEl.scrollHeight + 'px';
+                    }
                 }
             });
         }
@@ -716,7 +709,7 @@
                 filterActive = !filterActive;
                 filterEnabled = filterActive;
                 updateFilterPanelUI();
-                applyCategoryFilter();
+                applyCurrentFilter();
             });
         }
 
@@ -731,7 +724,7 @@
                     platformFilterActive = !platformFilterActive;
                 }
                 updateFilterPanelUI();
-                applyCategoryFilter();
+                applyCurrentFilter();
             });
         });
 
@@ -740,7 +733,7 @@
         if (filterCheckboxRow) {
             filterCheckboxRow.addEventListener('change', function(e) {
                 if (e.target.type === 'checkbox') {
-                    applyCategoryFilter();
+                    applyCurrentFilter();
                     // 更新列表 maxHeight
                     var exampleItemsEl = document.getElementById('exampleItems');
                     if (exampleItemsEl && exampleItemsEl.classList.contains('expanded')) {
