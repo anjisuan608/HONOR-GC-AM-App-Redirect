@@ -534,6 +534,11 @@
         var exampleSearch = document.getElementById('exampleSearch');
         var keyword = exampleSearch ? exampleSearch.value : '';
         filterExampleItems(keyword);
+        // 重新计算列表 maxHeight（筛选条件变化可能改变可见 chip 数量）
+        var exampleItemsEl = document.getElementById('exampleItems');
+        if (exampleItemsEl && exampleItemsEl.classList.contains('expanded')) {
+            exampleItemsEl.style.maxHeight = exampleItemsEl.scrollHeight + 'px';
+        }
     }
 
     /**
@@ -547,7 +552,12 @@
         var chips = container.querySelectorAll('.example-chip');
 
         if (!filterActive) {
-            // 筛选器未启用或开关关闭，显示全部
+            // 顶层筛选器未启用或开关关闭，显示全部
+            chips.forEach(function(chip) { chip.style.display = ''; });
+            return;
+        }
+        if (!typeFilterActive && !platformFilterActive) {
+            // 两个组开关都关闭，等价于关闭筛选器，显示全部
             chips.forEach(function(chip) { chip.style.display = ''; });
             return;
         }
@@ -567,13 +577,13 @@
             var platform = chip.getAttribute('data-platform') || '';
             // AND 逻辑：应用若属于被取消勾选的分类则隐藏
             var visible = true;
-            // type 组：组开关关闭时该组所有 category 视为全部勾选（不过滤）
+            // type 组：组开关关闭时跳过该组所有判断（不参与过滤）
             if (typeFilterActive) {
                 if (type === 'honor' && !selectedCategories['honor']) visible = false;
                 if (type === 'huawei' && !selectedCategories['huawei']) visible = false;
                 if (isOther(type) && !selectedCategories['other']) visible = false;
             }
-            // platform 组：组开关关闭时该组所有 category 视为全部勾选（不过滤）
+            // platform 组：组开关关闭时跳过该组所有判断（不参与过滤）
             if (platformFilterActive) {
                 if (platform === 'tablet' && !selectedCategories['tablet']) visible = false;
                 if (platform === 'phone' && !selectedCategories['phone']) visible = false;
