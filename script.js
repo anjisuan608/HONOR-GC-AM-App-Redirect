@@ -510,7 +510,10 @@
 
         // 再叠加搜索过滤
         var lowerKeyword = keyword.toLowerCase().trim();
-        if (!lowerKeyword) return;  // 无搜索词，分类筛选已处理完毕
+        if (!lowerKeyword) {
+            updateEmptyHint();
+            return;  // 无搜索词，分类筛选已处理完毕
+        }
 
         var chips = container.querySelectorAll('.example-chip');
         chips.forEach(function(chip) {
@@ -525,6 +528,26 @@
                                 note.includes(lowerKeyword);
             if (!searchVisible) chip.style.display = 'none';
         });
+        updateEmptyHint();
+    }
+
+    /**
+     * 根据当前可见 chip 数量控制"没有找到匹配的结果"提示的显隐
+     * 仅在列表展开时才有意义（CSS 控制）
+     */
+    function updateEmptyHint() {
+        var container = document.getElementById('exampleItems');
+        var hint = document.getElementById('exampleEmpty');
+        if (!container || !hint) return;
+        var chips = container.querySelectorAll('.example-chip');
+        var hasVisible = false;
+        for (var i = 0; i < chips.length; i++) {
+            if (chips[i].style.display !== 'none') {
+                hasVisible = true;
+                break;
+            }
+        }
+        hint.hidden = hasVisible;
     }
 
     /**

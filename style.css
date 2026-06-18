@@ -783,6 +783,20 @@ body {
     outline-offset: 2px;
 }
 
+/* 空结果提示：搜索/筛选无匹配时显示 */
+.example-empty {
+    display: none;
+    padding: 16px;
+    text-align: center;
+    color: var(--md3-on-surface-variant);
+    font-size: 13px;
+}
+
+/* 仅在列表展开时显示空结果提示 */
+.example-area:has(.example-items.expanded) .example-empty:not([hidden]) {
+    display: block;
+}
+
 .example-header {
     display: flex;
     align-items: center;
