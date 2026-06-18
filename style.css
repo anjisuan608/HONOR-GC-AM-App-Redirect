@@ -517,6 +517,48 @@ body {
     gap: 8px;
 }
 
+/* 筛选分组容器：纵向两行（应用类型 / 应用平台） */
+.filter-groups {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.filter-group-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--md3-primary);
+    padding-left: 16px;
+    user-select: none;
+    min-width: 56px;
+    flex-shrink: 0;
+}
+
+.filter-group-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    flex: 1 1 auto;
+}
+
+@media (max-width: 480px) {
+    .filter-group {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 4px;
+    }
+    .filter-group-label {
+        padding-left: 0;
+    }
+}
+
 .filter-checkbox {
     display: flex;
     align-items: center;
@@ -571,7 +613,7 @@ body {
 }
 
 /* 筛选器停用时复选框行半透明 */
-.example-filter-panel.filter-disabled .filter-checkbox-row {
+.example-filter-panel.filter-disabled .filter-groups {
     opacity: 0.38;
     pointer-events: none;
 }
