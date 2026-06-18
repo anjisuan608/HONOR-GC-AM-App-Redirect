@@ -48,6 +48,14 @@
     // 筛选器状态
     var filterEnabled = false;  // 筛选器是否启用（由 toggle 开关状态控制：filterEnabled = filterActive）
     var filterActive = false;   // 筛选开关是否打开（面板内的 toggle，默认关闭）
+    // 组级筛选开关：type 控制 honor/huawei/other，platform 控制 universal/phone/tablet
+    var typeFilterActive = false;     // 应用类型组开关
+    var platformFilterActive = false; // 应用平台组开关
+
+    // 类型分类集合：哪些 category 受 type 组开关影响
+    var TYPE_CATEGORIES = ['honor', 'huawei', 'other'];
+    // 平台分类集合：哪些 category 受 platform 组开关影响
+    var PLATFORM_CATEGORIES = ['universal', 'phone', 'tablet'];
 
     /**
      * 获取选中的平台
@@ -456,6 +464,22 @@
     }
 
     /**
+     * 判断应用是否属于"手机应用"分类
+     * @returns {boolean}
+     */
+    function isPhone(type, platform) {
+        return platform === 'phone';
+    }
+
+    /**
+     * 判断应用是否属于"平板应用"分类
+     * @returns {boolean}
+     */
+    function isTablet(type, platform) {
+        return platform === 'tablet';
+    }
+
+    /**
      * 根据搜索关键词过滤示例按钮显示
      * 搜索在分类筛选结果基础上进一步过滤
      * @param {string} keyword - 搜索关键词
@@ -484,13 +508,18 @@
                 });
 
                 // AND 逻辑：应用若属于被取消勾选的分类则隐藏
-                categoryVisible = true;
-                if (type === 'honor' && !selectedCategories['honor']) categoryVisible = false;
-                if (platform === 'tablet' && !selectedCategories['tablet']) categoryVisible = false;
-                if (platform === 'phone' && !selectedCategories['phone']) categoryVisible = false;
-                if (type === 'huawei' && !selectedCategories['huawei']) categoryVisible = false;
-                if (isUniversal(type, platform) && !selectedCategories['universal']) categoryVisible = false;
-                if (isOther(type, platform) && !selectedCategories['other']) categoryVisible = false;
+                // type 组：组开关关闭时该组所有 category 视为全部勾选（不过滤）
+                if (typeFilterActive) {
+                    if (type === 'honor' && !selectedCategories['honor']) categoryVisible = false;
+                    if (type === 'huawei' && !selectedCategories['huawei']) categoryVisible = false;
+                    if (isOther(type, platform) && !selectedCategories['other']) categoryVisible = false;
+                }
+                // platform 组：组开关关闭时该组所有 category 视为全部勾选（不过滤）
+                if (platformFilterActive) {
+                    if (platform === 'tablet' && !selectedCategories['tablet']) categoryVisible = false;
+                    if (platform === 'phone' && !selectedCategories['phone']) categoryVisible = false;
+                    if (isUniversal(type, platform) && !selectedCategories['universal']) categoryVisible = false;
+                }
             }
 
             // 再按搜索关键词判断
@@ -538,12 +567,18 @@
             var platform = chip.getAttribute('data-platform') || '';
             // AND 逻辑：应用若属于被取消勾选的分类则隐藏
             var visible = true;
-            if (type === 'honor' && !selectedCategories['honor']) visible = false;
-            if (platform === 'tablet' && !selectedCategories['tablet']) visible = false;
-            if (platform === 'phone' && !selectedCategories['phone']) visible = false;
-            if (type === 'huawei' && !selectedCategories['huawei']) visible = false;
-            if (isUniversal(type, platform) && !selectedCategories['universal']) visible = false;
-            if (isOther(type, platform) && !selectedCategories['other']) visible = false;
+            // type 组：组开关关闭时该组所有 category 视为全部勾选（不过滤）
+            if (typeFilterActive) {
+                if (type === 'honor' && !selectedCategories['honor']) visible = false;
+                if (type === 'huawei' && !selectedCategories['huawei']) visible = false;
+                if (isOther(type, platform) && !selectedCategories['other']) visible = false;
+            }
+            // platform 组：组开关关闭时该组所有 category 视为全部勾选（不过滤）
+            if (platformFilterActive) {
+                if (platform === 'tablet' && !selectedCategories['tablet']) visible = false;
+                if (platform === 'phone' && !selectedCategories['phone']) visible = false;
+                if (isUniversal(type, platform) && !selectedCategories['universal']) visible = false;
+            }
 
             chip.style.display = visible ? '' : 'none';
         });
@@ -567,6 +602,33 @@
             toggleBtn.querySelector('.filter-toggle-icon').innerHTML = '<path d="M280-240q-100 0-170-70T40-480q0-100 70-170t170-70h400q100 0 170 70t70 170q0 100-70 170t-170 70H280Zm0-80h400q66 0 113-47t47-113q0-66-47-113t-113-47H280q-66 0-113 47t-47 113q0 66 47 113t113 47Zm85-75q35-35 35-85t-35-85q-35-35-85-35t-85 35q-35 35-35 85t35 85q35 35 85 35t85-35Zm115-85Z"/>';
             panel.classList.add('filter-disabled');
         }
+
+        // 更新组开关的 UI
+        var typeToggle = document.querySelector('[data-group-toggle="type"]');
+        var platformToggle = document.querySelector('[data-group-toggle="platform"]');
+        if (typeToggle) {
+            typeToggle.setAttribute('aria-pressed', typeFilterActive ? 'true' : 'false');
+            typeToggle.setAttribute('title', typeFilterActive ? '停用应用类型筛选' : '启用应用类型筛选');
+            if (typeFilterActive) {
+                typeToggle.querySelector('.filter-toggle-icon').innerHTML = '<path d="M280-240q-100 0-170-70T40-480q0-100 70-170t170-70h400q100 0 170 70t70 170q0 100-70 170t-170 70H280Zm0-80h400q66 0 113-47t47-113q0-66-47-113t-113-47H280q-66 0-113 47t-47 113q0 66 47 113t113 47Zm485-75q35-35 35-85t-35-85q-35-35-85-35t-85 35q-35 35-35 85t35 85q35 35 85 35t85-35Zm-285-85Z"/>';
+            } else {
+                typeToggle.querySelector('.filter-toggle-icon').innerHTML = '<path d="M280-240q-100 0-170-70T40-480q0-100 70-170t170-70h400q100 0 170 70t70 170q0 100-70 170t-170 70H280Zm0-80h400q66 0 113-47t47-113q0-66-47-113t-113-47H280q-66 0-113 47t-47 113q0 66 47 113t113 47Zm85-75q35-35 35-85t-35-85q-35-35-85-35t-85 35q-35 35-35 85t35 85q35 35 85 35t85-35Zm115-85Z"/>';
+            }
+        }
+        if (platformToggle) {
+            platformToggle.setAttribute('aria-pressed', platformFilterActive ? 'true' : 'false');
+            platformToggle.setAttribute('title', platformFilterActive ? '停用应用平台筛选' : '启用应用平台筛选');
+            if (platformFilterActive) {
+                platformToggle.querySelector('.filter-toggle-icon').innerHTML = '<path d="M280-240q-100 0-170-70T40-480q0-100 70-170t170-70h400q100 0 170 70t70 170q0 100-70 170t-170 70H280Zm0-80h400q66 0 113-47t47-113q0-66-47-113t-113-47H280q-66 0-113 47t-47 113q0 66 47 113t113 47Zm485-75q35-35 35-85t-35-85q-35-35-85-35t-85 35q-35 35-35 85t35 85q35 35 85 35t85-35Zm-285-85Z"/>';
+            } else {
+                platformToggle.querySelector('.filter-toggle-icon').innerHTML = '<path d="M280-240q-100 0-170-70T40-480q0-100 70-170t170-70h400q100 0 170 70t70 170q0 100-70 170t-170 70H280Zm0-80h400q66 0 113-47t47-113q0-66-47-113t-113-47H280q-66 0-113 47t-47 113q0 66 47 113t113 47Zm85-75q35-35 35-85t-35-85q-35-35-85-35t-85 35q-35 35-35 85t35 85q35 35 85 35t85-35Zm115-85Z"/>';
+            }
+        }
+        // 组上的 data-disabled 控制 chips 半透明（与组开关联动）
+        var typeGroup = document.querySelector('.filter-group[data-group="type"]');
+        var platformGroup = document.querySelector('.filter-group[data-group="platform"]');
+        if (typeGroup) typeGroup.setAttribute('data-disabled', typeFilterActive ? 'false' : 'true');
+        if (platformGroup) platformGroup.setAttribute('data-disabled', platformFilterActive ? 'false' : 'true');
     }
 
     // 初始化事件监听器
@@ -642,6 +704,21 @@
                 applyCategoryFilter();
             });
         }
+
+        // 组级筛选开关按钮
+        var groupToggles = document.querySelectorAll('[data-group-toggle]');
+        groupToggles.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var group = btn.getAttribute('data-group-toggle');
+                if (group === 'type') {
+                    typeFilterActive = !typeFilterActive;
+                } else if (group === 'platform') {
+                    platformFilterActive = !platformFilterActive;
+                }
+                updateFilterPanelUI();
+                applyCategoryFilter();
+            });
+        });
 
         // 筛选器复选框变化事件
         var filterCheckboxRow = document.getElementById('filterCheckboxRow');
