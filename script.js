@@ -431,6 +431,31 @@
     }
 
     /**
+     * 判断应用是否属于"通用应用"分类
+     * universal = platform="universal" / 未声明 platform / platform 为非 phone/tablet 的其它值
+     * @returns {boolean}
+     */
+    function isUniversal(type, platform) {
+        if (platform === 'universal') return true;
+        if (platform === 'phone' || platform === 'tablet') return false;
+        // 未声明 platform 视为通用
+        return true;
+    }
+
+    /**
+     * 判断应用是否属于"其它应用"分类
+     * other = 显式无 type 且属于通用平台（即没有 honor/huawei 标记的非 phone/tablet 应用）
+     * 与 universal 互斥：未声明 platform 的应用归为 universal 而非 other
+     * @returns {boolean}
+     */
+    function isOther(type, platform) {
+        if (type) return false; // 有 type 标记的（honor/huawei）不属于 other
+        if (platform === 'phone' || platform === 'tablet') return false;
+        // platform 为 universal / 未声明 / 其它非 phone/tablet 值都不归 other
+        return false;
+    }
+
+    /**
      * 根据搜索关键词过滤示例按钮显示
      * 搜索在分类筛选结果基础上进一步过滤
      * @param {string} keyword - 搜索关键词
@@ -464,7 +489,8 @@
                 if (platform === 'tablet' && !selectedCategories['tablet']) categoryVisible = false;
                 if (platform === 'phone' && !selectedCategories['phone']) categoryVisible = false;
                 if (type === 'huawei' && !selectedCategories['huawei']) categoryVisible = false;
-                if (!type && !platform && !selectedCategories['other']) categoryVisible = false;
+                if (isUniversal(type, platform) && !selectedCategories['universal']) categoryVisible = false;
+                if (isOther(type, platform) && !selectedCategories['other']) categoryVisible = false;
             }
 
             // 再按搜索关键词判断
@@ -516,7 +542,8 @@
             if (platform === 'tablet' && !selectedCategories['tablet']) visible = false;
             if (platform === 'phone' && !selectedCategories['phone']) visible = false;
             if (type === 'huawei' && !selectedCategories['huawei']) visible = false;
-            if (!type && !platform && !selectedCategories['other']) visible = false;
+            if (isUniversal(type, platform) && !selectedCategories['universal']) visible = false;
+            if (isOther(type, platform) && !selectedCategories['other']) visible = false;
 
             chip.style.display = visible ? '' : 'none';
         });
@@ -745,9 +772,9 @@
         }
         updateFilterPanelUI();
 
-        // 解析分类勾选：honor/tablet/phone/huawei/other
+        // 解析分类勾选：honor/tablet/phone/huawei/other/universal
         // 不传或传 true → 勾选；传 false → 取消勾选
-        ['honor', 'tablet', 'phone', 'huawei', 'other'].forEach(function(cat) {
+        ['honor', 'tablet', 'phone', 'huawei', 'other', 'universal'].forEach(function(cat) {
             var val = params.get(cat);
             if (val === 'false') {
                 var label = document.querySelector('#filterCheckboxRow .filter-checkbox[data-category="' + cat + '"]');
