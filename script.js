@@ -780,7 +780,13 @@
                 } else {
                     // 展开
                     exampleItems.classList.add('expanded');
-                    exampleItems.style.maxHeight = exampleItems.scrollHeight + 'px';
+                    // 展开时如果内容超出 CSS max-height 上限（60vh），不强制覆盖为 scrollHeight，让 CSS 上限生效并出现滚动条
+                    var maxAllowed = exampleItems.scrollHeight;
+                    exampleItems.style.maxHeight = '';  // 让 CSS .expanded 的 max-height: 60vh 生效
+                    // 如果实际内容小于 60vh，使用精确高度（避免列表看起来空荡）
+                    if (maxAllowed < exampleItems.clientHeight) {
+                        exampleItems.style.maxHeight = maxAllowed + 'px';
+                    }
                     // filter=true 时同步展开筛选器面板
                     if (new URLSearchParams(window.location.search).get('filter') === 'true') {
                         var filterPanel = document.getElementById('exampleFilterPanel');
@@ -802,7 +808,12 @@
             if (!expanded) {
                 toggleBtn.setAttribute('aria-expanded', 'true');
                 exampleItems.classList.add('expanded');
-                exampleItems.style.maxHeight = exampleItems.scrollHeight + 'px';
+                // 让 CSS .expanded 的 max-height: 60vh 生效；内容少时收回到精确高度
+                exampleItems.style.maxHeight = '';
+                var maxAllowed = exampleItems.scrollHeight;
+                if (maxAllowed < exampleItems.clientHeight) {
+                    exampleItems.style.maxHeight = maxAllowed + 'px';
+                }
             }
         }
     }

@@ -973,14 +973,17 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
     max-height: 0;
     opacity: 0;
     transition: max-height 0.3s ease, opacity 0.3s ease;
 }
 
+/* 展开时给一个合理的最大高度上限，避免内容过多时撑爆页面 */
 .example-items.expanded {
     opacity: 1;
+    max-height: 60vh;
 }
 
 /* MD3 Outlined Button 风格的示例芯片 */
