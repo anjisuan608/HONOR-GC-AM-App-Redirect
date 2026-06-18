@@ -473,15 +473,11 @@
 
     /**
      * 判断应用是否属于"其它应用"分类
-     * other = 显式无 type 且属于通用平台（即没有 honor/huawei 标记的非 phone/tablet 应用）
-     * 与 universal 互斥：未声明 platform 的应用归为 universal 而非 other
+     * other = type 维度兜底：type 缺失、为空、或 type 不是 honor/huawei 的应用都归 other
      * @returns {boolean}
      */
-    function isOther(type, platform) {
-        if (type) return false; // 有 type 标记的（honor/huawei）不属于 other
-        if (platform === 'phone' || platform === 'tablet') return false;
-        // platform 为 universal / 未声明 / 其它非 phone/tablet 值都不归 other
-        return false;
+    function isOther(type) {
+        return type !== 'honor' && type !== 'huawei';
     }
 
     /**
@@ -575,7 +571,7 @@
             if (typeFilterActive) {
                 if (type === 'honor' && !selectedCategories['honor']) visible = false;
                 if (type === 'huawei' && !selectedCategories['huawei']) visible = false;
-                if (isOther(type, platform) && !selectedCategories['other']) visible = false;
+                if (isOther(type) && !selectedCategories['other']) visible = false;
             }
             // platform 组：组开关关闭时该组所有 category 视为全部勾选（不过滤）
             if (platformFilterActive) {
