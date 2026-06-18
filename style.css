@@ -1011,6 +1011,26 @@ body {
     max-height: 60vh;
 }
 
+/* 滚动条样式：默认隐藏轨道，仅保留窄滚动条。鼠标 hover 列表时才显示完整轨道 */
+.example-items::-webkit-scrollbar {
+    width: 8px;
+}
+.example-items::-webkit-scrollbar-track {
+    background: transparent;
+}
+.example-items::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--md3-on-surface-variant) 25%, transparent);
+    border-radius: 4px;
+}
+.example-items:hover::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--md3-on-surface-variant) 50%, transparent);
+}
+/* Firefox */
+.example-items {
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--md3-on-surface-variant) 25%, transparent) transparent;
+}
+
 /* MD3 Outlined Button 风格的示例芯片 */
 .example-chip {
     flex: 1 1 calc(50% - 4px);

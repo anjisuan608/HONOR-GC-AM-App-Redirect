@@ -803,13 +803,9 @@
                 } else {
                     // 展开
                     exampleItems.classList.add('expanded');
-                    // 展开时如果内容超出 CSS max-height 上限（60vh），不强制覆盖为 scrollHeight，让 CSS 上限生效并出现滚动条
-                    var maxAllowed = exampleItems.scrollHeight;
-                    exampleItems.style.maxHeight = '';  // 让 CSS .expanded 的 max-height: 60vh 生效
-                    // 如果实际内容小于 60vh，使用精确高度（避免列表看起来空荡）
-                    if (maxAllowed < exampleItems.clientHeight) {
-                        exampleItems.style.maxHeight = maxAllowed + 'px';
-                    }
+                    // 优先按实际内容精确显示高度（贴合内容不出现空荡）
+                    // CSS max-height: 60vh 仍生效，但只有内容超过 60vh 才需要滚动条
+                    exampleItems.style.maxHeight = exampleItems.scrollHeight + 'px';
                     // filter=true 时同步展开筛选器面板
                     if (new URLSearchParams(window.location.search).get('filter') === 'true') {
                         var filterPanel = document.getElementById('exampleFilterPanel');
@@ -831,12 +827,8 @@
             if (!expanded) {
                 toggleBtn.setAttribute('aria-expanded', 'true');
                 exampleItems.classList.add('expanded');
-                // 让 CSS .expanded 的 max-height: 60vh 生效；内容少时收回到精确高度
-                exampleItems.style.maxHeight = '';
-                var maxAllowed = exampleItems.scrollHeight;
-                if (maxAllowed < exampleItems.clientHeight) {
-                    exampleItems.style.maxHeight = maxAllowed + 'px';
-                }
+                // 优先按实际内容精确显示高度；CSS 60vh 上限兜底，超出时滚动条生效
+                exampleItems.style.maxHeight = exampleItems.scrollHeight + 'px';
             }
         }
     }
