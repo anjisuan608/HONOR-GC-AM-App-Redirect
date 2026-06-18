@@ -323,6 +323,9 @@
                 if (filterPanel) filterPanel.hidden = false;
             }
         }
+
+        // 数据渲染完成后，重新应用 URL 参数的分类筛选（之前 init 阶段容器为空）
+        applyCategoryFilter();
     }
 
     /**
@@ -866,14 +869,14 @@
         updateFilterPanelUI();
 
         // 解析分类勾选：honor/tablet/phone/huawei/other/universal
-        // 不传或传 true → 勾选；传 false → 取消勾选
+        // 不传 → 保持当前；传 true → 勾选；传 false → 取消勾选
         ['honor', 'tablet', 'phone', 'huawei', 'other', 'universal'].forEach(function(cat) {
             var val = params.get(cat);
-            if (val === 'false') {
+            if (val === 'true' || val === 'false') {
                 var label = document.querySelector('#filterCheckboxRow .filter-checkbox[data-category="' + cat + '"]');
                 if (label) {
                     var cb = label.querySelector('input[type="checkbox"]');
-                    if (cb) cb.checked = false;
+                    if (cb) cb.checked = (val === 'true');
                 }
             }
         });

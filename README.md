@@ -40,16 +40,16 @@ plat | `GC` \| `AM` | 平台选择：GC=游戏中心、AM=应用市场 | `GC`
 pkg | 任意字符串 | 应用包名，传值后自动填入输入框 | 无
 go | `true` \| `false` | 是否自动跳转，`false` 时仅填入不跳转 | `true`
 eg | 任意字符串 | 填入示例搜索框 + 展开示例列表 + 滚动定位 | 无
-filter | `true` | 列表已展开时自动展开筛选器面板 | 不传=不自动展开
+filter | `true` | 列表已展开时自动展开筛选器面板（`false` / 其他值保持现状） | 不传=不自动展开
 select | `true` \| `false` | 筛选器总开关启用/停用 | 不传=保持默认
 platform | `true` \| `false` | 「应用平台」分组开关 | 不传=保持默认
 type | `true` \| `false` | 「应用类型」分组开关 | 不传=保持默认
-honor | `false` | 取消勾选"荣耀应用"分类 | 默认勾选
-huawei | `false` | 取消勾选"华为应用"分类 | 默认勾选
-other | `false` | 取消勾选"其它应用"分类 | 默认勾选
-universal | `false` | 取消勾选"通用应用"分类 | 默认勾选
-phone | `false` | 取消勾选"手机应用"分类 | 默认勾选
-tablet | `false` | 取消勾选"平板应用"分类 | 默认勾选
+honor | `true` \| `false` | 勾选/取消勾选"荣耀应用"分类 | 不传=保持当前
+huawei | `true` \| `false` | 勾选/取消勾选"华为应用"分类 | 不传=保持当前
+other | `true` \| `false` | 勾选/取消勾选"其它应用"分类 | 不传=保持当前
+universal | `true` \| `false` | 勾选/取消勾选"通用应用"分类 | 不传=保持当前
+phone | `true` \| `false` | 勾选/取消勾选"手机应用"分类 | 不传=保持当前
+tablet | `true` \| `false` | 勾选/取消勾选"平板应用"分类 | 不传=保持当前
 
 ### 导航
 
