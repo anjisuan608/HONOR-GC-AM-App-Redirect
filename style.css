@@ -137,7 +137,7 @@ body {
     align-items: center;
     justify-content: center;
     margin-top: 1px;
-    color: var(--md3-primary);
+    color: var(--md3-error);
 }
 
 .url-param-warning-content {
