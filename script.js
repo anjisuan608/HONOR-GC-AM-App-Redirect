@@ -303,8 +303,11 @@
         var params = new URLSearchParams(window.location.search);
         var filterParam = params.get('filter') === 'true';
         var egParam = params.get('eg');
+        // 标记 eg 是否已处理（navigateToExamples 内部已包含 applyCategoryFilter + 搜索过滤）
+        var egHandled = false;
         if (egParam && egParam.trim()) {
             navigateToExamples(egParam.trim());
+            egHandled = true;
         } else if (window.location.hash === '#eg') {
             expandExampleList();
             setTimeout(function() {
@@ -325,7 +328,10 @@
         }
 
         // 数据渲染完成后，重新应用 URL 参数的分类筛选（之前 init 阶段容器为空）
-        applyCategoryFilter();
+        // 跳过 eg 场景：navigateToExamples 内部已经处理过搜索 + 分类过滤
+        if (!egHandled) {
+            applyCategoryFilter();
+        }
     }
 
     /**
