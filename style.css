@@ -649,7 +649,7 @@ body {
 
 @media (max-width: 480px) {
     .filter-group {
-        align-items: flex-start;
+        align-items: center;
         flex-direction: row;
         gap: 4px;
     }
