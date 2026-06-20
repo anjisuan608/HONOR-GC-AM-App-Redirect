@@ -520,122 +520,127 @@
         <pkg>com.hihonor.compass</pkg>
         <note>荣耀指南针</note>
     </package>
-    <package id="101" type="honor" platform="universal">
+    <package id="101" type="honor" platform="phone">
+        <name>智慧按键</name>
+        <pkg>com.hihonor.magickey</pkg>
+        <note>AI 键</note>
+    </package>
+    <package id="102" type="honor" platform="universal">
         <name>智慧多窗</name>
         <pkg>com.hihonor.hndockbar</pkg>
         <note>荣耀侧边栏</note>
     </package>
-    <package id="102" type="honor" platform="tablet">
+    <package id="103" type="honor" platform="tablet">
         <name>智慧思维</name>
         <pkg>com.hihonor.pcclient.hfreeplanelauncher</pkg>
         <note>智慧思维</note>
     </package>
-    <package id="103" type="honor" platform="tablet">
+    <package id="104" type="honor" platform="tablet">
         <name>智慧文笔 探索版</name>
         <pkg>com.hihonor.pcclient.ghostwriterlauncher</pkg>
         <note>智慧文笔 探索版</note>
     </package>
-    <package id="104" type="honor" platform="universal">
+    <package id="105" type="honor" platform="universal">
         <name>智能家居服务</name>
         <pkg>com.hihonor.smartiot</pkg>
         <note>智能家居 IoT 服务</note>
     </package>
-    <package id="105" type="honor" platform="universal">
+    <package id="106" type="honor" platform="universal">
         <name>智能检测</name>
         <pkg>com.hihonor.detectrepair</pkg>
         <note>智能检测与修复</note>
     </package>
-    <package id="106" type="honor" platform="universal">
+    <package id="107" type="honor" platform="universal">
         <name>智能提醒</name>
         <pkg>com.hihonor.suggestion</pkg>
         <note>智能提醒服务</note>
     </package>
-    <package id="107" type="honor" platform="phone">
+    <package id="108" type="honor" platform="phone">
         <name>智能信息插件</name>
         <pkg>com.hihonor.intelligentmessage</pkg>
         <note>智能信息插件</note>
     </package>
-    <package id="108" type="honor" platform="tablet">
+    <package id="109" type="honor" platform="tablet">
         <name>中望 CAD PC</name>
         <pkg>com.hihonor.cadlauncher</pkg>
         <note>中望 CAD PC</note>
     </package>
-    <package id="109" type="honor" platform="universal">
+    <package id="110" type="honor" platform="universal">
         <name>主题</name>
         <pkg>com.hihonor.android.thememanager</pkg>
         <note>荣耀主题管理</note>
     </package>
-    <package id="110" type="honor" platform="tablet">
+    <package id="111" type="honor" platform="tablet">
         <name>专注写作</name>
         <pkg>com.hihonor.pcclient.hfocuswriterlauncher</pkg>
         <note>专注写作</note>
     </package>
-    <package id="111" type="honor" platform="phone">
+    <package id="112" type="honor" platform="phone">
         <name>AI 翻译</name>
         <pkg>com.hihonor.magictranslate</pkg>
         <note>AI 翻译</note>
     </package>
-    <package id="112" type="honor" platform="universal">
+    <package id="113" type="honor" platform="universal">
         <name>AI 通话</name>
         <pkg>com.hihonor.recordassistant</pkg>
         <note>录音助理</note>
     </package>
-    <package id="113" type="honor" platform="tablet">
+    <package id="114" type="honor" platform="tablet">
         <name>CAJViewer PC</name>
         <pkg>com.hihonor.cajlauncher</pkg>
         <note>CAJViewer PC</note>
     </package>
-    <package id="114" type="honor" platform="tablet">
+    <package id="115" type="honor" platform="tablet">
         <name>Choice 金融终端 PC</name>
         <pkg>com.eastmoney.choice</pkg>
         <note>Choice 金融终端 PC</note>
     </package>
-    <package id="115" type="other" platform="universal">
+    <package id="116" type="other" platform="universal">
         <name>Google Play 商店</name>
         <pkg>com.android.vending</pkg>
         <note>Google Play Store</note>
     </package>
-    <package id="116" type="huawei" platform="universal">
+    <package id="117" type="huawei" platform="universal">
         <name>HMS Core</name>
         <pkg>com.huawei.hwid</pkg>
         <note>HMS Core</note>
     </package>
-    <package id="117" type="honor" platform="tablet">
+    <package id="118" type="honor" platform="tablet">
         <name>Linux 实验室</name>
         <pkg>com.hihonor.pcengine</pkg>
         <note>荣耀 Linux 实验室</note>
     </package>
-    <package id="118" type="honor" platform="tablet">
+    <package id="119" type="honor" platform="tablet">
         <name>PDF页面管家 尝鲜版 PC</name>
         <pkg>com.hihonor.pdfarrangerlauncher</pkg>
         <note>PDF页面管家 尝鲜版 PC</note>
     </package>
-    <package id="119" type="other" platform="universal">
+    <package id="120" type="other" platform="universal">
         <name>QQ</name>
         <pkg>com.tencent.mobileqq</pkg>
         <note>腾讯QQ</note>
     </package>
-    <package id="120" type="honor" platform="tablet">
+    <package id="121" type="honor" platform="tablet">
         <name>WPS Office PC</name>
         <pkg>com.hihonor.wpslauncher</pkg>
         <note>WPS Office PC</note>
     </package>
-    <package id="121" type="honor" platform="universal">
+    <package id="122" type="honor" platform="universal">
         <name>YOYO 记忆</name>
         <pkg>com.hihonor.collectcenter</pkg>
         <note>收藏空间</note>
     </package>
-    <package id="122" type="honor" platform="universal">
+    <package id="123" type="honor" platform="universal">
         <name>YOYO 拍照问</name>
         <pkg>com.hihonor.lens</pkg>
         <note>YOYO 看见/智慧视觉</note>
     </package>
-    <package id="123" type="honor" platform="universal">
+    <package id="124" type="honor" platform="universal">
         <name>YOYO 智能体</name>
         <pkg>com.hihonor.magicvoice</pkg>
         <note>YOYO 助理</note>
     </package>
-    <package id="124" type="honor" platform="tablet">
+    <package id="125" type="honor" platform="tablet">
         <name>YOYO Claw</name>
         <pkg>com.honor.magicclaw</pkg>
         <note>YOYO Claw PAD</note>
