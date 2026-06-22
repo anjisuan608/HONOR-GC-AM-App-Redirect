@@ -193,7 +193,7 @@
     <package id="35" type="honor" platform="universal">
         <name>魔法画报</name>
         <pkg>com.hihonor.magazine</pkg>
-        <note>荣耀魔法画报</note>
+        <note>杂志锁屏</note>
     </package>
     <package id="36" type="honor" platform="universal">
         <name>魔法形象</name>
@@ -475,7 +475,7 @@
         <pkg>com.hihonor.cloudmusic</pkg>
         <note>荣耀音乐</note>
     </package>
-    <package id="92" type="honor" platform="universal">
+    <package id="92" type="other" platform="universal">
         <name>银联可信服务安全组件</name>
         <pkg>com.unionpay.tsmservice</pkg>
         <note>银联可信服务管理</note>
